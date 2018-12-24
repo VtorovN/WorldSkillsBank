@@ -35,16 +35,16 @@ public class MainActivity extends AppCompatActivity {
 
         MessagesApi messagesApi = retrofit.create(MessagesApi.class);
 
-        Call<List<Message>> messages = messagesApi.messages();
+        Call<Message> message = messagesApi.messages();
 
-        messages.enqueue(new Callback<List<Message>>() {
+        message.enqueue(new Callback<Message>() {
             @Override
-            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-                Log.println(1,"response","response " + response.body().size());
+            public void onResponse(Call<Message> call, Response<Message> response) {
+                Log.println(1,"response","response " + response.body());
             }
 
             @Override
-            public void onFailure(Call<List<Message>> call, Throwable t) {
+            public void onFailure(Call<Message> call, Throwable t) {
                 Log.println(1,"failure","failure " + t);
             }
         });
