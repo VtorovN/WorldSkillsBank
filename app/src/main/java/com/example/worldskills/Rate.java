@@ -1,11 +1,9 @@
 package com.example.worldskills;
 
 public class Rate {
-    private double USD, RUB, EUR;
+    private double USD, RUB;
 
     public double getUSD() { return USD; }
-
-    public double getEUR() { return EUR; }
 
     public double getRUB() { return RUB; }
 }

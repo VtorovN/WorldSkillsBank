@@ -5,11 +5,11 @@ import java.util.List;
 public class Message {
     private boolean success;
     private String base;
-    private List<Rate> rates;
+    private Rate rates;
 
     public boolean getSuccess() { return success; }
 
     public String getBase() { return base; }
 
-    public List<Rate> getRates() { return rates; }
+    public Rate getRates() { return rates; }
 }
