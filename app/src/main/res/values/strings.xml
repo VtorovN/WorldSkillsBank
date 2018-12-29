@@ -3,4 +3,9 @@
     <string name="sign_in">Войти</string>
     <string name="map">Отделения и банкоматы</string>
     <string name="currency">Курсы валют</string>
+    <string name="usd">USD</string>
+    <string name="usd_decoded">Американский доллар</string>
+    <string name="buy">Покупка</string>
+    <string name="sell">Продажа</string>
+    <string name="error">Ошибка</string>
 </resources>

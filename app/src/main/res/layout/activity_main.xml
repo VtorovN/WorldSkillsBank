@@ -8,16 +8,16 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView_bank"
+        android:id="@+id/main_image_bank"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_title_bot"
-        app:layout_constraintStart_toStartOf="@+id/guideline_icon_title_start"
-        app:layout_constraintTop_toTopOf="@+id/guideline_icon_title_top"
+        app:layout_constraintBottom_toTopOf="@+id/main_guideline_title_bot"
+        app:layout_constraintStart_toStartOf="@+id/main_guideline_icon_title_start"
+        app:layout_constraintTop_toTopOf="@+id/main_guideline_icon_title_top"
         app:srcCompat="@drawable/bank_icon_museum" />
 
     <TextView
-        android:id="@+id/textViewTitle"
+        android:id="@+id/main_text_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -29,13 +29,13 @@
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="#82589E"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_title_bot"
+        app:layout_constraintBottom_toTopOf="@+id/main_guideline_title_bot"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView_bank"
-        app:layout_constraintTop_toTopOf="@+id/guideline_icon_title_top" />
+        app:layout_constraintStart_toEndOf="@+id/main_image_bank"
+        app:layout_constraintTop_toTopOf="@+id/main_guideline_icon_title_top" />
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/button_map"
+        android:id="@+id/main_button_map"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -46,17 +46,17 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline_button_map_bot"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_bank">
+        app:layout_constraintTop_toBottomOf="@+id/main_image_bank">
 
         <android.support.constraint.Guideline
-            android:id="@+id/guideline_button_text"
+            android:id="@+id/main_guideline_button_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="100dp" />
 
         <ImageView
-            android:id="@+id/imageView_location"
+            android:id="@+id/main_image_location"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="32dp"
@@ -68,7 +68,7 @@
             app:srcCompat="@drawable/bank_icon_pin" />
 
         <TextView
-            android:id="@+id/textView_map"
+            android:id="@+id/main_text_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -77,12 +77,12 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline_button_text"
-            app:layout_constraintTop_toTopOf="@+id/imageView_location" />
+            app:layout_constraintStart_toStartOf="@+id/main_guideline_button_text"
+            app:layout_constraintTop_toTopOf="@+id/main_image_location" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/button_currency"
+        android:id="@+id/main_button_course"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -90,20 +90,21 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/button_white"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_button_currency_bot"
+        android:onClick="courseButtonClick"
+        app:layout_constraintBottom_toTopOf="@+id/main_guideline_button_currency_bot"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_map">
+        app:layout_constraintTop_toBottomOf="@+id/main_button_map">
 
         <android.support.constraint.Guideline
-            android:id="@+id/guideline_button_text2"
+            android:id="@+id/main_guideline_button_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="100dp" />
 
         <ImageView
-            android:id="@+id/imageView_currency"
+            android:id="@+id/main_image_course"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="32dp"
@@ -116,7 +117,7 @@
             app:srcCompat="@drawable/bank_icon_exchange_dollar" />
 
         <TextView
-            android:id="@+id/textView_currency"
+            android:id="@+id/main_text_currency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -125,21 +126,21 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline_button_text2"
-            app:layout_constraintTop_toTopOf="@+id/imageView_currency" />
+            app:layout_constraintStart_toStartOf="@+id/main_guideline_button_text2"
+            app:layout_constraintTop_toTopOf="@+id/main_image_course" />
 
         <TextView
-            android:id="@+id/textView_date"
+            android:id="@+id/main_text_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView_currency" />
+            app:layout_constraintTop_toTopOf="@+id/main_image_course" />
 
         <TextView
-            android:id="@+id/textView_usd"
+            android:id="@+id/main_text_usd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -153,7 +154,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView_eur"
+            android:id="@+id/main_text_eur"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -169,7 +170,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <Button
-        android:id="@+id/button_sign_in"
+        android:id="@+id/main_button_sign_in"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -180,27 +181,27 @@
         android:text="@string/sign_in"
         android:textColor="@android:color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_button_sign_in_bot"
+        app:layout_constraintBottom_toTopOf="@+id/main_guideline_button_sign_in_bot"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_currency" />
+        app:layout_constraintTop_toBottomOf="@+id/main_button_course" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_icon_title_top"
+        android:id="@+id/main_guideline_icon_title_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_icon_title_start"
+        android:id="@+id/main_guideline_icon_title_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="42dp" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_title_bot"
+        android:id="@+id/main_guideline_title_bot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -214,14 +215,14 @@
         app:layout_constraintGuide_percent="0.4250441" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_button_currency_bot"
+        android:id="@+id/main_guideline_button_currency_bot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.6419753" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_button_sign_in_bot"
+        android:id="@+id/main_guideline_button_sign_in_bot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

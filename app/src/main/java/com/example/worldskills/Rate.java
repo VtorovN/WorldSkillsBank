@@ -1,9 +1,29 @@
 package com.example.worldskills;
 
 public class Rate {
-    private double USD, RUB;
+    private double USD, RUB; //RUB == EUR in RUB; Add other currencies if necessary
 
-    public double getUSD() { return USD; }
+    public double getCurrency(String code) {
+        switch (code) {
+            case "USD":
+                return toRub(USD);
 
-    public double getRUB() { return RUB; }
+            case "RUB":
+                return toRub(RUB);
+
+            case "EUR":
+                return RUB;
+
+            default:
+                return 0;
+        }
+    }
+
+    private double toRub(double currency) { //base currency is always EUR -> need to convert
+        try {
+        return RUB / currency;
+        } catch (java.lang.ArithmeticException divideByZeroException) {
+            return 0;
+        }
+    }
 }
