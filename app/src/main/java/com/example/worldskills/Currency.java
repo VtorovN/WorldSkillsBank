@@ -14,8 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Currency {
     private String  code, decoded;
-    private double course;
-    private int courseChangeArrowId, flagId;
+    private double course, courseChange;
+    private int flagId;
     private Retrofit retrofit;
     private MessagesApi messagesApi;
     private Call<Message> messageLatest, messageHistorical;
@@ -41,7 +41,7 @@ public class Currency {
 
     public String getDecoded() { return decoded; }
 
-    public int getCourseChangeArrowId() { return courseChangeArrowId; }
+    public double getCourseChange() { return courseChange; }
 
     public int getFlagId() { return flagId; }
 
@@ -79,17 +79,17 @@ public class Currency {
             public void onResponse(Call<Message> call, Response<Message> response) {
                 Log.println(1, "response", "response" + response.body());
                 if (response.body().getSuccess()) {
-                    courseChangeArrowId = response.body().getRates().getCurrency(code) < course ? R.drawable.arrow_up_green : R.drawable.arrow_down_red;
+                    courseChange = course - response.body().getRates().getCurrency(code);
                 }
                 else {
-                    course = -1;
+                    courseChange = 0;
                 }
             }
 
             @Override
             public void onFailure(Call<Message> call, Throwable t) {
                 Log.println(1, "failure", "failure " + t);
-                course = -1;
+                courseChange = 0;
             }
         });
     }

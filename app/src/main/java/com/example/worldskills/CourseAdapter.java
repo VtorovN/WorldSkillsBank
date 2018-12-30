@@ -69,8 +69,23 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             textViewCourseBuy.setText(decimalFormat.format(currency.getCourse()));
             textViewCourseSell.setText(decimalFormat.format(currency.getCourse()));
 
-            imageViewCourseBuyChange.setImageDrawable(
-            imageViewCourseSellChange.setImageDrawable(
+            if (currency.getCourseChange() < 0)
+            {
+                imageViewCourseBuyChange.setVisibility(View.VISIBLE);
+                imageViewCourseSellChange.setVisibility(View.VISIBLE);
+                imageViewCourseBuyChange.setImageResource(R.drawable.arrow_down_red);
+                imageViewCourseSellChange.setImageResource(R.drawable.arrow_down_red);
+            }
+            else if (currency.getCourseChange() > 0) {
+                imageViewCourseBuyChange.setVisibility(View.VISIBLE);
+                imageViewCourseSellChange.setVisibility(View.VISIBLE);
+                imageViewCourseBuyChange.setImageResource(R.drawable.arrow_up_green);
+                imageViewCourseSellChange.setImageResource(R.drawable.arrow_up_green);
+            }
+            else {
+                imageViewCourseBuyChange.setVisibility(View.INVISIBLE);
+                imageViewCourseSellChange.setVisibility(View.INVISIBLE);
+            }
 
             imageCurrencyFlag.setImageResource(currency.getFlagId());
         }

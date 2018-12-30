@@ -35,7 +35,7 @@ public class CourseActivity extends AppCompatActivity {
 
     private void initCurrencySet() {
         currencySet = new HashSet<>();
-        currencySet.add(new Currency("USD", "@string/usd_decoded", R.drawable.us_flag));
+        currencySet.add(new Currency("USD", getResources().getString(R.string.usd_decoded), R.drawable.us_flag));
     }
 
     private void initRecyclerView() {
