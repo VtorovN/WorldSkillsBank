@@ -1,6 +1,6 @@
 package com.example.worldskills;
 
-public class Message {
+public class MessageCurrency {
     private boolean success;
     private Rate rates;
 

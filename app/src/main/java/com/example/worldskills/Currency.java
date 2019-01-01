@@ -1,6 +1,5 @@
 package com.example.worldskills;
 
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
@@ -18,7 +17,7 @@ public class Currency {
     private int flagId;
     private Retrofit retrofit;
     private MessagesApi messagesApi;
-    private Call<Message> messageLatest, messageHistorical;
+    private Call<MessageCurrency> messageLatest, messageHistorical;
     private Date pastDate;
     private SimpleDateFormat dateFormat;
 
@@ -50,10 +49,10 @@ public class Currency {
     public void updateCourse() {
         messageLatest = messagesApi.latest();
 
-        messageLatest.enqueue(new Callback<Message>() {
+        messageLatest.enqueue(new Callback<MessageCurrency>() {
 
             @Override
-            public void onResponse(Call<Message> call, Response<Message> response) {
+            public void onResponse(Call<MessageCurrency> call, Response<MessageCurrency> response) {
                 Log.println(1,"response","response " + response.body());
                 if (response.body().getSuccess()) {
                     course = response.body().getRates().getCurrency(code);
@@ -65,7 +64,7 @@ public class Currency {
             }
 
             @Override
-            public void onFailure(Call<Message> call, Throwable t) {
+            public void onFailure(Call<MessageCurrency> call, Throwable t) {
                 Log.println(1,"failure","failure " + t);
                 course = -1;
             }
@@ -74,9 +73,9 @@ public class Currency {
         pastDate = new Date((long)((new Date()).getTime() - 8.64e+7));
         messageHistorical = messagesApi.historical(dateFormat.format(pastDate));
 
-        messageHistorical.enqueue(new Callback<Message>() {
+        messageHistorical.enqueue(new Callback<MessageCurrency>() {
             @Override
-            public void onResponse(Call<Message> call, Response<Message> response) {
+            public void onResponse(Call<MessageCurrency> call, Response<MessageCurrency> response) {
                 Log.println(1, "response", "response" + response.body());
                 if (response.body().getSuccess()) {
                     courseChange = course - response.body().getRates().getCurrency(code);
@@ -87,7 +86,7 @@ public class Currency {
             }
 
             @Override
-            public void onFailure(Call<Message> call, Throwable t) {
+            public void onFailure(Call<MessageCurrency> call, Throwable t) {
                 Log.println(1, "failure", "failure " + t);
                 courseChange = 0;
             }

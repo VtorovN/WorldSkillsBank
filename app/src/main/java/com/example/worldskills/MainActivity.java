@@ -39,14 +39,14 @@ public class MainActivity extends AppCompatActivity {
 
         MessagesApi messagesApi = retrofit.create(MessagesApi.class);
 
-        Call<Message> messageLatest = messagesApi.latest();
+        Call<MessageCurrency> messageLatest = messagesApi.latest();
 
-        messageLatest.enqueue(new Callback<Message>() {
+        messageLatest.enqueue(new Callback<MessageCurrency>() {
             final TextView textViewUSD = findViewById(R.id.main_text_usd);
             final TextView textViewEUR = findViewById(R.id.main_text_eur);
 
             @Override
-            public void onResponse(Call<Message> call, Response<Message> response) {
+            public void onResponse(Call<MessageCurrency> call, Response<MessageCurrency> response) {
                 Log.println(1,"response","response " + response.body());
                 if (response.body().getSuccess()) {
                     eur = response.body().getRates().getCurrency("EUR");
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Message> call, Throwable t) {
+            public void onFailure(Call<MessageCurrency> call, Throwable t) {
                 Log.println(1,"failure","failure " + t);
                 eur = -1;
                 usd = -1;
