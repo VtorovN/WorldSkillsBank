@@ -83,4 +83,9 @@ public class MainActivity extends AppCompatActivity {
         Intent courseIntent = new Intent(MainActivity.this, CourseActivity.class);
         startActivity(courseIntent);
     }
+
+    public void mapButtonClick(View view) {
+        Intent mapIntent = new Intent(MainActivity.this, MapActivity.class);
+        startActivity(mapIntent);
+    }
 }

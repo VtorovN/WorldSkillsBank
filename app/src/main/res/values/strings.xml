@@ -8,4 +8,7 @@
     <string name="buy">Покупка</string>
     <string name="sell">Продажа</string>
     <string name="error">Ошибка</string>
+    <string name="hours">Часы работы</string>
+    <string name="open">Работает</string>
+    <string name="close">Не работает</string>
 </resources>
