@@ -39,14 +39,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/button_white"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_button_map_bot"
+        app:layout_constraintBottom_toTopOf="@+id/main_guideline_button_map_bot"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_image_bank">
+        app:layout_constraintTop_toTopOf="@+id/main_guideline_button_map_top">
 
         <android.support.constraint.Guideline
             android:id="@+id/main_guideline_button_text"
@@ -86,15 +85,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/button_white"
-        android:orientation="horizontal"
         android:onClick="courseButtonClick"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/main_guideline_button_currency_bot"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_button_map">
+        app:layout_constraintTop_toTopOf="@+id/main_guideline_button_currency_top">
 
         <android.support.constraint.Guideline
             android:id="@+id/main_guideline_button_text2"
@@ -174,7 +172,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/button_blue"
         android:orientation="horizontal"
@@ -184,7 +181,7 @@
         app:layout_constraintBottom_toTopOf="@+id/main_guideline_button_sign_in_bot"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_button_course" />
+        app:layout_constraintTop_toTopOf="@+id/main_guideline_button_sign_in_top" />
 
     <android.support.constraint.Guideline
         android:id="@+id/main_guideline_icon_title_top"
@@ -208,7 +205,7 @@
         app:layout_constraintGuide_percent="0.20458554" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_button_map_bot"
+        android:id="@+id/main_guideline_button_map_bot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -227,5 +224,26 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.93121696" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/main_guideline_button_map_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.24691358" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/main_guideline_button_currency_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.46737212" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/main_guideline_button_sign_in_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7548501" />
 
 </android.support.constraint.ConstraintLayout>
