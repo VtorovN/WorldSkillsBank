@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ConstraintLayout"
+    android:id="@+id/course_constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
@@ -11,8 +11,10 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/course_layout_heading"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#F0E0F7">
+        android:layout_height="0dp"
+        android:background="#F0E0F7"
+        app:layout_constraintBottom_toTopOf="@+id/course_guideline_title_bot"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.Guideline
             android:id="@+id/course_guideline1"
@@ -78,6 +80,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course_layout_heading"/>
+        app:layout_constraintTop_toBottomOf="@+id/course_layout_heading" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/course_guideline_title_bot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.07054674" />
 
 </android.support.constraint.ConstraintLayout>
