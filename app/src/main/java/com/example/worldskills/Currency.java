@@ -16,7 +16,7 @@ public class Currency {
     private double course, courseChange;
     private int flagId;
     private Retrofit retrofit;
-    private MessagesApi messagesApi;
+    private CurrencyApi currencyApi;
     private Call<MessageCurrency> messageLatest, messageHistorical;
     private Date pastDate;
     private SimpleDateFormat dateFormat;
@@ -31,7 +31,7 @@ public class Currency {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        messagesApi = retrofit.create(MessagesApi.class);
+        currencyApi = retrofit.create(CurrencyApi.class);
         dateFormat = new SimpleDateFormat("YYYY-dd-MM");
         updateCourse();
     }
@@ -47,7 +47,7 @@ public class Currency {
     public double getCourse() { return course; }
 
     public void updateCourse() {
-        messageLatest = messagesApi.latest();
+        messageLatest = currencyApi.latest();
 
         messageLatest.enqueue(new Callback<MessageCurrency>() {
 
@@ -71,7 +71,7 @@ public class Currency {
         });
 
         pastDate = new Date((long)((new Date()).getTime() - 8.64e+7));
-        messageHistorical = messagesApi.historical(dateFormat.format(pastDate));
+        messageHistorical = currencyApi.historical(dateFormat.format(pastDate));
 
         messageHistorical.enqueue(new Callback<MessageCurrency>() {
             @Override

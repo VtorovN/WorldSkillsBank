@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        MessagesApi messagesApi = retrofit.create(MessagesApi.class);
+        CurrencyApi currencyApi = retrofit.create(CurrencyApi.class);
 
-        Call<MessageCurrency> messageLatest = messagesApi.latest();
+        Call<MessageCurrency> messageLatest = currencyApi.latest();
 
         messageLatest.enqueue(new Callback<MessageCurrency>() {
             final TextView textViewUSD = findViewById(R.id.main_text_usd);
