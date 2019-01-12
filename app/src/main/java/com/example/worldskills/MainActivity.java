@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -21,11 +22,15 @@ public class MainActivity extends AppCompatActivity {
 
     private double eur = 0;
     private double usd = 0;
+    private ProgressBar progressBar;
+    private static ATM[] atmArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        progressBar = findViewById(R.id.main_progressBar);
 
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.YYYY");
@@ -83,4 +88,35 @@ public class MainActivity extends AppCompatActivity {
         Intent courseIntent = new Intent(MainActivity.this, CourseActivity.class);
         startActivity(courseIntent);
     }
+
+    public void mapButtonClick(View view) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://api.areas.su/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        MapApi mapApi = retrofit.create(MapApi.class);
+
+        final Call<ATM[]> messageMap = mapApi.map();
+
+        progressBar.setVisibility(View.VISIBLE);
+        messageMap.enqueue(new Callback<ATM[]>() {
+            @Override
+            public void onResponse(Call<ATM[]> call, Response<ATM[]> response) {
+                Log.println(1,"response","response " + response.body().toString());
+                atmArray = response.body();
+                Intent mapIntent = new Intent(MainActivity.this, MapActivity.class);
+                startActivity(mapIntent);
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onFailure(Call<ATM[]> call, Throwable t) {
+                Log.println(1,"failure","failure " + t);
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+    public static ATM[] getATMs() { return atmArray; }
 }

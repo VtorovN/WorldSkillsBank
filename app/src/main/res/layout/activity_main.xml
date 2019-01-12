@@ -42,6 +42,7 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/button_white"
         android:orientation="horizontal"
+        android:onClick="mapButtonClick"
         app:layout_constraintBottom_toTopOf="@+id/main_guideline_button_map_bot"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -171,7 +172,7 @@
         android:id="@+id/main_button_sign_in"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/button_blue"
         android:orientation="horizontal"
@@ -245,5 +246,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.7548501" />
+
+    <ProgressBar
+        android:id="@+id/main_progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
