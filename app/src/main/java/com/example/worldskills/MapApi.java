@@ -6,5 +6,5 @@ import retrofit2.http.GET;
 public interface MapApi {
 
     @GET("bankomats")
-    Call<MessageMap> map();
+    Call<ATM[]> map();
 }

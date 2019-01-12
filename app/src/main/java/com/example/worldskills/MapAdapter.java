@@ -66,24 +66,34 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ATMViewHolder> {
             textViewATMType.setText(atm.getType());
             String atmTimeStart = atm.getTimeStart();
             String atmTimeEnd = atm.getTimeEnd();
-            String workingTime = hours + atmTimeStart + "-" + atmTimeEnd;
+            String workingTime = hours + " " + atmTimeStart + "-" + atmTimeEnd;
             textViewATMHours.setText(workingTime);
 
             //open/close?
-            int hourStart = Integer.valueOf(atmTimeStart.substring(0,1));
-            int minuteStart = Integer.valueOf(atmTimeStart.substring(3,4));
-            int hourEnd = Integer.valueOf(atmTimeEnd.substring(0,1));
-            int minuteEnd = Integer.valueOf(atmTimeStart.substring(3,4));
+            int hourStart = Integer.valueOf(atmTimeStart.substring(0,2));
+            int minuteStart = Integer.valueOf(atmTimeStart.substring(3));
+            int hourEnd = Integer.valueOf(atmTimeEnd.substring(0,2));
+            if (hourEnd == 0) hourEnd = 24;
+            int minuteEnd = Integer.valueOf(atmTimeStart.substring(3));
 
             Calendar currentDate = Calendar.getInstance();
             int currentHour = currentDate.get(Calendar.HOUR_OF_DAY);
             int currentMinute = currentDate.get(Calendar.MINUTE);
 
-            if (currentHour >= hourStart && currentHour < hourEnd && currentMinute >= minuteStart && currentMinute < minuteEnd) {
+            if (currentHour > hourStart) { //Too difficult. Find alternative?
+                if (currentHour < hourEnd - 1) {
+                    textViewATMState.setText(open);
+                    textViewATMState.setTextColor(Color.parseColor("#00FF00"));
+                } else if (currentHour == hourEnd - 1 && currentMinute < minuteEnd) {
+                    textViewATMState.setText(open);
+                    textViewATMState.setTextColor(Color.parseColor("#00FF00"));
+                }
+            }
+            if (!(currentHour > hourStart) && currentHour == hourStart && currentMinute >= minuteStart) {
                 textViewATMState.setText(open);
                 textViewATMState.setTextColor(Color.parseColor("#00FF00"));
             }
-            else {
+            else if (!(currentHour > hourStart)) {
                 textViewATMState.setText(close);
                 textViewATMState.setTextColor(Color.parseColor("#FF0000"));
             }

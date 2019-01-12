@@ -20,6 +20,7 @@ public class Currency {
     private Call<MessageCurrency> messageLatest, messageHistorical;
     private Date pastDate;
     private SimpleDateFormat dateFormat;
+    private Listener listener;
 
     public Currency(String code, String decoded, int flagId) {
         this.code = code.toUpperCase();
@@ -34,6 +35,14 @@ public class Currency {
         currencyApi = retrofit.create(CurrencyApi.class);
         dateFormat = new SimpleDateFormat("YYYY-dd-MM");
         updateCourse();
+    }
+
+    public Listener getListener() {
+        return listener;
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
     }
 
     public String getCode() { return code; }
@@ -56,6 +65,7 @@ public class Currency {
                 Log.println(1,"response","response " + response.body());
                 if (response.body().getSuccess()) {
                     course = response.body().getRates().getCurrency(code);
+                    listener.onGetData();
                 }
                 else {
                     Log.println(1, "response", "response " + response.body());
