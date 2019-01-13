@@ -4,18 +4,23 @@ public class Rate {
     private double USD, RUB; //RUB == EUR in RUB; Add other currencies if necessary
 
     public double getCurrency(String code) {
-        switch (code) {
-            case "USD":
-                return toRub(USD);
+        try {
+            switch (code) {
+                case "USD":
+                    return toRub(USD);
 
-            case "RUB":
-                return toRub(RUB);
+                case "RUB":
+                    return toRub(RUB);
 
-            case "EUR":
-                return RUB;
+                case "EUR":
+                    return RUB;
 
-            default:
-                return 0;
+                default:
+                    return 0;
+            }
+        }
+        catch (NullPointerException ex) {
+            return(0);
         }
     }
 

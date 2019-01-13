@@ -46,8 +46,7 @@ public class CourseActivity extends AppCompatActivity {
 
     private void initCurrencySet() {
         currencySet = new HashSet<>();
-        Currency currency = new Currency("USD", getResources().getString(R.string.usd_decoded), R.drawable.us_flag);
-        currency.setListener(new Listener() {
+        final Currency currency = new Currency("USD", getResources().getString(R.string.usd_decoded), R.drawable.us_flag, new Listener() {
             @Override
             public void onGetData() {
                 courseAdapter.setItems(currencySet);

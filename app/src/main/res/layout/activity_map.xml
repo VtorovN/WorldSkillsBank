@@ -8,6 +8,13 @@
     android:background="#FFFFFF"
     tools:context=".MapActivity">
 
+    <ProgressBar
+        android:id="@+id/map_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:visibility="invisible"/>
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/map_layout_heading"
         android:layout_width="match_parent"
