@@ -63,4 +63,9 @@ public class MainActivity extends AppCompatActivity {
         Intent mapIntent = new Intent(MainActivity.this, MapActivity.class);
         startActivity(mapIntent);
     }
+
+    public void signInButtonClick(View view) {
+        LoginDialogFragment dialogFragment = new LoginDialogFragment();
+        dialogFragment.show(getSupportFragmentManager(), "signIn");
+    }
 }

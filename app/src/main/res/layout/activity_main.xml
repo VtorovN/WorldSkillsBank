@@ -179,6 +179,7 @@
         android:text="@string/sign_in"
         android:textColor="@android:color/white"
         android:textSize="20sp"
+        android:onClick="signInButtonClick"
         app:layout_constraintBottom_toTopOf="@+id/main_guideline_button_sign_in_bot"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

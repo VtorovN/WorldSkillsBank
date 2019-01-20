@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="EditTextLoginDialogStyle" parent="@style/Widget.AppCompat.EditText">
+        <item name="colorControlNormal">#00A0FF</item>
+    </style>
+
 </resources>

@@ -1,14 +1,29 @@
 <resources>
+    <!-- app -->
     <string name="app_name">WorldSkills</string>
+
+    <!-- main -->
     <string name="sign_in">Войти</string>
     <string name="map">Отделения и банкоматы</string>
     <string name="currency">Курсы валют</string>
+    <string name="error">Ошибка</string>
+
+    <!-- course -->
     <string name="usd">USD</string>
     <string name="usd_decoded">Американский доллар</string>
     <string name="buy">Покупка</string>
     <string name="sell">Продажа</string>
-    <string name="error">Ошибка</string>
+
+    <!-- map -->
     <string name="hours">Часы работы</string>
     <string name="open">Работает</string>
     <string name="close">Не работает</string>
+
+    <!-- login -->
+    <string name="login_title">Авторизация</string>
+    <string name="login_subtitle">Введите Ваш логин и пароль</string>
+    <string name="login_hint">Логин</string>
+    <string name="password_hint">Пароль</string>
+    <string name="login_cancel">Отмена</string>
+    <string name="login_enter">Войти</string>
 </resources>
