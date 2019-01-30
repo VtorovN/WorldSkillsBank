@@ -14,6 +14,25 @@
     <string name="buy">Покупка</string>
     <string name="sell">Продажа</string>
 
+    <!-- currency cases -->
+    <string name="rubles">рублей</string>
+    <string name="dollars">долларов</string>
+
+    <!-- card -->
+    <string name="my_cards_title">МОИ КАРТЫ</string>
+    <string name="debit_card">Дебетовая карта</string>
+    <string name="credit_card">Кредитная карта</string>
+
+    <!-- account -->
+    <string name="my_accounts_title">МОИ СЧЕТА</string>
+    <string name="current_account">Текущий счет</string>
+
+    <!-- credit -->
+    <string name="my_credits_title">МОИ КРЕДИТЫ</string>
+    <string name="cash_credit">Кредит наличными</string>
+    <string name="mortgage_credit">Ипотека</string>
+    <string name="credit_payment">Платеж</string>
+
     <!-- map -->
     <string name="hours">Часы работы</string>
     <string name="open">Работает</string>
@@ -26,4 +45,8 @@
     <string name="password_hint">Пароль</string>
     <string name="login_cancel">Отмена</string>
     <string name="login_enter">Войти</string>
+
+    <!-- toolbar -->
+    <string name="exit_hint">Выход</string>
+    <string name="user_name">Сергей Владимирович</string> <!-- temporary!!! -->
 </resources>
