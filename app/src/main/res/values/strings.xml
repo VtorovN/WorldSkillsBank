@@ -18,6 +18,19 @@
     <string name="rubles">рублей</string>
     <string name="dollars">долларов</string>
 
+    <!-- map -->
+    <string name="hours">Часы работы</string>
+    <string name="open">Работает</string>
+    <string name="close">Не работает</string>
+
+    <!-- login -->
+    <string name="login_title">Авторизация</string>
+    <string name="login_subtitle">Введите Ваш логин и пароль</string>
+    <string name="login_hint">Логин</string>
+    <string name="password_hint">Пароль</string>
+    <string name="login_cancel">Отмена</string>
+    <string name="login_enter">Войти</string>
+
     <!-- card -->
     <string name="my_cards_title">МОИ КАРТЫ</string>
     <string name="debit_card">Дебетовая карта</string>
@@ -32,19 +45,6 @@
     <string name="cash_credit">Кредит наличными</string>
     <string name="mortgage_credit">Ипотека</string>
     <string name="credit_payment">Платеж</string>
-
-    <!-- map -->
-    <string name="hours">Часы работы</string>
-    <string name="open">Работает</string>
-    <string name="close">Не работает</string>
-
-    <!-- login -->
-    <string name="login_title">Авторизация</string>
-    <string name="login_subtitle">Введите Ваш логин и пароль</string>
-    <string name="login_hint">Логин</string>
-    <string name="password_hint">Пароль</string>
-    <string name="login_cancel">Отмена</string>
-    <string name="login_enter">Войти</string>
 
     <!-- toolbar -->
     <string name="exit_hint">Выход</string>

@@ -1,15 +1,23 @@
 package com.example.worldskills;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 
 public class UserProfileActivity extends AppCompatActivity {
+
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +25,32 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         initToolbar();
+        initRV();
+    }
+
+    private void initRV() {
+        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+
+        //dummies:
+
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card("debit", "1234567843218765", "visa",50000));
+        cards.add(new Card("credit", "4815381033737514", "mir",10.5));
+        sectionAdapter.addSection(new CardSection(cards));
+
+        List<Account> accounts = new ArrayList<>();
+        accounts.add(new Account("current", "1324675890", 1000.15));
+        accounts.add(new Account("current", "1324675890", 850300));
+        sectionAdapter.addSection(new AccountSection(accounts));
+
+        List<Credit> credits = new ArrayList<>();
+        credits.add(new Credit("cash", "10.02.2019", 150000));
+        credits.add(new Credit("mortgage", "21.03.2019", 10230));
+        sectionAdapter.addSection(new CreditSection(credits));
+
+        recyclerView = (RecyclerView) findViewById(R.id.profile_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        recyclerView.setAdapter(sectionAdapter);
     }
 
     @Override

@@ -20,7 +20,7 @@
         app:titleMarginStart="60dp"
         app:titleMarginEnd="8dp" />
 
-    <!-- RV contains layouts with RVs to show different account features -->
+    <!-- RV contains layouts with LinearLayouts to show different account features -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/profile_recycler_view"
         android:layout_width="match_parent"
