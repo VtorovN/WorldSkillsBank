@@ -68,8 +68,8 @@ class CreditViewHolder extends RecyclerView.ViewHolder {
         String nextPaymentString = creditPaymentString + " "
                 + credit.getType(); //if date is already in DD.MM.YYYY
 
-        DecimalFormat decimalFormat = new DecimalFormat("###.00");
-        String moneyString = decimalFormat.format(credit.getType()) + " " + rublesString;
+        DecimalFormat decimalFormat = new DecimalFormat("##0.00");
+        String moneyString = decimalFormat.format(credit.getMoney()) + " " + rublesString;
         creditMoney.setText(moneyString);
     }
 }

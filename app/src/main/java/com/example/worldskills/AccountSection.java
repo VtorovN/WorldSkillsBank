@@ -65,7 +65,7 @@ class AccountViewHolder extends RecyclerView.ViewHolder {
         String accountNumberHidden = "****" + accountNumberRaw.substring(4); //**** 000000
         accountNumber.setText(accountNumberHidden);
 
-        DecimalFormat decimalFormat = new DecimalFormat("###.00");
+        DecimalFormat decimalFormat = new DecimalFormat("##0.00");
         String balanceString = decimalFormat.format(account.getBalance()) + " " + rublesString;
         accountBalance.setText(balanceString);
     }

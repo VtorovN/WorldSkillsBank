@@ -1,12 +1,13 @@
 package com.example.worldskills;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
+
+import static android.support.v7.widget.RecyclerView.VERTICAL;
 
 public class UserProfileActivity extends AppCompatActivity {
 
@@ -36,6 +39,7 @@ public class UserProfileActivity extends AppCompatActivity {
         List<Card> cards = new ArrayList<>();
         cards.add(new Card("debit", "1234567843218765", "visa",50000));
         cards.add(new Card("credit", "4815381033737514", "mir",10.5));
+        cards.add(new Card("credit", "1010241599332515", "maestro",0));
         sectionAdapter.addSection(new CardSection(cards));
 
         List<Account> accounts = new ArrayList<>();
@@ -51,6 +55,10 @@ public class UserProfileActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.profile_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         recyclerView.setAdapter(sectionAdapter);
+
+        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
+        decoration.setDrawable(getBaseContext().getResources().getDrawable(R.drawable.profile_recycler_decoration, null));
+        recyclerView.addItemDecoration(decoration);
     }
 
     @Override

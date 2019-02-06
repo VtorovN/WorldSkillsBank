@@ -74,7 +74,7 @@ class CardViewHolder extends RecyclerView.ViewHolder {
                 + cardNumberRaw.substring(12); //0000 **** **** 0000
         cardNumber.setText(cardNumberHidden);
 
-        DecimalFormat decimalFormat = new DecimalFormat("###.00");
+        DecimalFormat decimalFormat = new DecimalFormat("##0.00");
         String balanceString = decimalFormat.format(card.getBalance()) + " " + rublesString;
         cardBalance.setText(balanceString);
 
