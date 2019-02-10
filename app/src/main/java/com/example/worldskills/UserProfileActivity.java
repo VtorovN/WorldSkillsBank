@@ -91,16 +91,14 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void initBottomToolbar() {
-        //View bottomToolbar = findViewById(R.id.profile_bottom_toolbar);
-        //ImageButton homeButton = bottomToolbar.findViewById(R.id.action_home);
         ImageButton homeButton = findViewById(R.id.action_home);
         ImageButton paymentsButton = findViewById(R.id.action_payments);
         ImageButton historyButton = findViewById(R.id.action_history);
         ImageButton chatButton = findViewById(R.id.action_chat);
-        homeButton.setImageResource(R.drawable.icon_home_active);
-        paymentsButton.setImageResource(R.drawable.icon_payments_inactive);
-        historyButton.setImageResource(R.drawable.icon_history_inactive);
-        chatButton.setImageResource(R.drawable.icon_chat_inactive);
+        homeButton.setBackground(getResources().getDrawable(R.drawable.icon_home_active,null));
+        paymentsButton.setBackground(getResources().getDrawable(R.drawable.icon_payments_inactive,null));
+        historyButton.setBackground(getResources().getDrawable(R.drawable.icon_history_inactive,null));
+        chatButton.setBackground(getResources().getDrawable(R.drawable.icon_chat_inactive,null));
 
         TextView homeText = findViewById(R.id.text_home);
         TextView paymentsText = findViewById(R.id.text_payments);
@@ -112,17 +110,17 @@ public class UserProfileActivity extends AppCompatActivity {
         chatText.setTextColor(Color.parseColor("#FFFFFF"));
     }
 
-    public void onHomeButtonClick() { }
+    public void onHomeButtonClick(View view) { }
 
-    public void onPaymentsButtonClick() {
+    public void onPaymentsButtonClick(View view) {
         //startActivity(new Intent(UserProfileActivity.this, PaymentsActivity.class));
     }
 
-    public void onHistoryButtonClick() {
+    public void onHistoryButtonClick(View view) {
         //startActivity(new Intent(UserProfileActivity.this, HistoryActivity.class));
     }
 
-    public void onChatButtonClick() {
+    public void onChatButtonClick(View view) {
         //startActivity(new Intent(UserProfileActivity.this, ChatActivity.class));
     }
 }
