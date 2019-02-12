@@ -10,9 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class LoginDialogFragment extends DialogFragment {
     @Override
@@ -21,15 +18,17 @@ public class LoginDialogFragment extends DialogFragment {
         final LayoutInflater inflater = getActivity().getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.activity_login_popup, null))
                 .setMessage(R.string.login_title)
-                .setNegativeButton(R.string.login_cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dismiss();
                     }
                 })
-                .setPositiveButton(R.string.login_enter, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.enter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getContext(), UserProfileActivity.class));
+                        /*
                         if (getLogin() != "" && getPassword() != "") {
                             RepositoryProfile.getUserToken(
                                     getLogin(),
@@ -46,6 +45,7 @@ public class LoginDialogFragment extends DialogFragment {
                                         }
                                     });
                         }
+                        */
                     }
                 });
         return builder.create();

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight"
     tools:context=".UserProfileActivity">
 
     <android.support.v7.widget.Toolbar
@@ -24,18 +25,20 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/profile_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_toolbar"
+        app:layout_constraintVertical_bias="0.0"
+        android:background="#FFFFFF"/>
 
     <include
-        layout="@layout/profile_bottom_toolbar_layout"
         android:id="@+id/profile_bottom_toolbar"
+        layout="@layout/profile_bottom_toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_recycler_view"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

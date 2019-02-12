@@ -8,8 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="EditTextLoginDialogStyle" parent="@style/Widget.AppCompat.EditText">
+    <style name="EditTextDialogStyle" parent="@style/Widget.AppCompat.EditText">
         <item name="colorControlNormal">#00A0FF</item>
+        <item name="android:colorControlActivated">#00A0FF</item>
     </style>
 
 </resources>

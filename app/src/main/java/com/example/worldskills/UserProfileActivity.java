@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class UserProfileActivity extends AppCompatActivity {
         credits.add(new Credit("mortgage", "21.03.2019", 10230));
         sectionAdapter.addSection(new CreditSection(credits));
 
-        recyclerView = (RecyclerView) findViewById(R.id.profile_recycler_view);
+        recyclerView = findViewById(R.id.profile_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         recyclerView.setAdapter(sectionAdapter);
 
@@ -75,11 +76,9 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) { //Exit button pressed, delete login token!!!
-        if(item.getItemId() == R.id.action_exit) {
-
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.action_profile_features) {
+            startActivity(new Intent(this, ProfileFeaturesActivity.class));
         }
         return true;
     }
