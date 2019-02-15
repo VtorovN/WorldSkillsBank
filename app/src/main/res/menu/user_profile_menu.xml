@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_profile_features"
         android:icon="@drawable/user"
-        android:title="@string/exit_hint"
+        android:title="@string/profile"
         app:showAsAction="always" />
-
-    <!-- android:id="action_exit" -->
 
 </menu>

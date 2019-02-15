@@ -28,8 +28,8 @@
     <string name="login_subtitle">Введите Ваш логин и пароль</string>
     <string name="login_hint">Логин</string>
     <string name="password_hint">Пароль</string>
-    <string name="login_cancel">Отмена</string>
-    <string name="login_enter">Войти</string>
+    <string name="cancel">Отмена</string>
+    <string name="enter">Войти</string>
 
     <!-- card -->
     <string name="my_cards_title">МОИ КАРТЫ</string>
@@ -47,11 +47,22 @@
     <string name="credit_payment">Платеж</string>
 
     <!-- toolbar top -->
-    <string name="exit_hint">Выход</string>
+    <string name="profile">Профиль</string>
+    <string name="user_name">Сергей Владимирович</string> <!-- temporary!!! -->
 
     <!-- toolbar bottom -->
     <string name="home_hint">Главный</string>
     <string name="payments_hint">Платежи</string>
     <string name="history_hint">История</string>
     <string name="chat_hint">Диалоги</string>
+
+    <!-- profile features -->
+    <string name="change_password">Изменение пароля</string>
+    <string name="change_password_subtitle">Введите новый пароль</string>
+    <string name="change_login">Изменение логина</string>
+    <string name="change_login_subtitle">Введите новый логин</string>
+    <string name="change">Изменить</string>
+    <string name="visits_history">История посещений</string>
+    <string name="app_info">Информация о приложении</string>
+    <string name="exit">Выход</string>
 </resources>
