@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginDialogFragment extends DialogFragment {
 
@@ -35,7 +36,6 @@ public class LoginDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         startActivity(new Intent(getContext(), UserProfileActivity.class));
-                        /*
                         if (getLogin() != "" && getPassword() != "") {
                             RepositoryProfile.getUserToken(
                                     getLogin(),
@@ -45,14 +45,14 @@ public class LoginDialogFragment extends DialogFragment {
                                         public void onGetToken(boolean isValid, String info) {
                                             if (isValid) {
                                                 listener.onGetData();
-                                                //startActivity(new Intent(context, UserProfileActivity.class));
                                             } else {
                                                 Toast.makeText(context, info, Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     });
+                        } else {
+                            Toast.makeText(context, "Enter username and password", Toast.LENGTH_LONG).show();
                         }
-                        */
                     }
                 });
         return builder.create();
