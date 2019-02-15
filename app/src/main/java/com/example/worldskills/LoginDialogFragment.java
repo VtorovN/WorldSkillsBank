@@ -2,6 +2,7 @@ package com.example.worldskills;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,6 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginDialogFragment extends DialogFragment {
+
+    private Context context;
+    private Listener listener;
+
+    public void setListener(Listener listener) { this.listener = listener; }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_DeviceDefault_Dialog_Alert);
@@ -36,12 +43,12 @@ public class LoginDialogFragment extends DialogFragment {
                                     getPassword(),
                                     new LoginDataListener() {
                                         @Override
-                                        public void onGetToken(String token) {
-                                            if (token != null) {
-                                                Intent intent = new Intent(getContext(), UserProfileActivity.class);
-                                                startActivity(intent);
+                                        public void onGetToken(boolean isValid, String info) {
+                                            if (isValid) {
+                                                listener.onGetData();
+                                                //startActivity(new Intent(context, UserProfileActivity.class));
                                             } else {
-
+                                                Toast.makeText(context, info, Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     });
@@ -49,6 +56,12 @@ public class LoginDialogFragment extends DialogFragment {
                     }
                 });
         return builder.create();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Override

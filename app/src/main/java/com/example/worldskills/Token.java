@@ -1,13 +1,16 @@
 package com.example.worldskills;
 
 public class Token{
-    private static String token;
+    private String token;
+    private static String currentToken;
 
-    public Token(String token) {
-        Token.token = token;
-    }
+    public String getToken() { return token; }
 
-    public static String getToken() { return token; }
+    public void deleteToken() { token = null; }
 
-    public static void deleteToken() { token = null; }
+    public static String getCurrentToken() { return currentToken; }
+
+    public static void deleteCurrentToken() { currentToken = null; }
+
+    public static void setCurrentToken(String token) { currentToken = token; }
 }

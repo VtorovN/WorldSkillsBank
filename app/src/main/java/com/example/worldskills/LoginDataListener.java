@@ -1,5 +1,5 @@
 package com.example.worldskills;
 
 public interface LoginDataListener {
-    void onGetToken(String token);
+    void onGetToken(boolean isValid, String info);
 }

@@ -11,7 +11,7 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 public class CreditSection extends StatelessSection {
-    List<Credit> creditList;
+    private List<Credit> creditList;
 
     public CreditSection(List<Credit> list) {
         super(SectionParameters.builder()
@@ -40,36 +40,29 @@ public class CreditSection extends StatelessSection {
 
 class CreditViewHolder extends RecyclerView.ViewHolder {
 
-    TextView creditType, creditNextPayment, creditMoney;
-    String cashCreditString, mortgageCreditString, creditPaymentString, rublesString;
+    private TextView creditName, creditNextPayment, creditSum;
+    private String creditPaymentString, rublesString;
 
     public CreditViewHolder (View creditView) {
         super(creditView);
-        creditType = creditView.findViewById(R.id.creditView_text_type);
+        creditName = creditView.findViewById(R.id.creditView_text_name);
         creditNextPayment = creditView.findViewById(R.id.creditView_text_payment);
-        creditMoney = creditView.findViewById(R.id.creditView_text_money);
-        cashCreditString = itemView.getResources().getString(R.string.cash_credit);
-        mortgageCreditString = itemView.getResources().getString(R.string.mortgage_credit);
+        creditSum = creditView.findViewById(R.id.creditView_text_money);
         creditPaymentString = itemView.getResources().getString(R.string.credit_payment);
         rublesString = itemView.getResources().getString(R.string.rubles);
     }
 
     public void bind (Credit credit) {
-        switch (credit.getType()) {
-            case "cash":
-                creditType.setText(cashCreditString);
-                break;
+        creditName.setText(credit.getCreditName());
 
-            case "mortgage":
-                creditType.setText(mortgageCreditString);
-                break;
-        }
-
+        String[] date = credit.getPaymentDate().substring(0, 10).split("-"); //YYYY-MM-DD
         String nextPaymentString = creditPaymentString + " "
-                + credit.getType(); //if date is already in DD.MM.YYYY
+                + date[2] + "." + date[1] + "." + date[0];
+        creditNextPayment.setText(nextPaymentString);
 
         DecimalFormat decimalFormat = new DecimalFormat("##0.00");
-        String moneyString = decimalFormat.format(credit.getMoney()) + " " + rublesString;
-        creditMoney.setText(moneyString);
+        double sum = credit.getSum()/100.0d;
+        String sumString = decimalFormat.format(sum) + " " + rublesString;
+        creditSum.setText(sumString);
     }
 }

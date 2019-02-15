@@ -1,29 +1,24 @@
 package com.example.worldskills;
 
 public class Account {
+    private String accountNumber, accountName;
+    private long balance;
 
-    private String type, number;
-    private double balance;
-
-    public Account(String type, String number, double balance) {
-        this.type = type;
-        this.number = number;
+    public Account(String accountNumber, String accountName, long balance) {
+        this.accountNumber = accountNumber;
+        this.accountName = accountName;
         this.balance = balance;
     }
 
-    public String getType() {
-        return type;
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    public String getNumber() {
-        return number;
+    public String getAccountName() {
+        return accountName;
     }
 
-    public double getBalance() {
+    public long getBalance() {
         return balance;
-    }
-
-    public void setBalance(long balance) {
-        this.balance = balance;
     }
 }

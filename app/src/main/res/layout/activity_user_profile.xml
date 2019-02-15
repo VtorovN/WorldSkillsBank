@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight"
     tools:context=".UserProfileActivity">
 
     <android.support.v7.widget.Toolbar
@@ -20,22 +21,21 @@
         app:titleMarginStart="60dp"
         app:titleMarginEnd="8dp" />
 
-    <!-- RV contains layouts with LinearLayouts to show different account features -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/profile_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_toolbar" />
 
     <include
-        layout="@layout/profile_bottom_toolbar_layout"
         android:id="@+id/profile_bottom_toolbar"
+        layout="@layout/profile_bottom_toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_recycler_view"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

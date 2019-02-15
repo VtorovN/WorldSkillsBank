@@ -15,9 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
@@ -27,39 +29,40 @@ import static android.support.v7.widget.RecyclerView.VERTICAL;
 public class UserProfileActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    private static User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+        ProgressBar progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleSmall);
+        setContentView(progressBar);
+        RepositoryProfile.getUserInfo(new UserDataListener() {
+            @Override
+            public void onGetUserData(User user) {
+                UserProfileActivity.user = user;
 
-        initToolbar();
-        initBottomToolbar();
-        initRV();
+                setContentView(R.layout.activity_user_profile);
+
+                initToolbar();
+                initBottomToolbar();
+                initRV();
+            }
+        });
     }
 
     private void initRV() {
         SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
 
-        //dummies:
-
-        List<Card> cards = new ArrayList<>();
-        cards.add(new Card("debit", "1234567843218765", "visa",50000));
-        cards.add(new Card("credit", "4815381033737514", "mir",10.5));
-        cards.add(new Card("credit", "1010241599332515", "maestro",0));
+        List<Card> cards = Arrays.asList(user.getCards());
         sectionAdapter.addSection(new CardSection(cards));
 
-        List<Account> accounts = new ArrayList<>();
-        accounts.add(new Account("current", "1324675890", 1000.15));
-        accounts.add(new Account("current", "1324675890", 850300));
+        List<Account> accounts = Arrays.asList(user.getAccounts());
         sectionAdapter.addSection(new AccountSection(accounts));
 
-        List<Credit> credits = new ArrayList<>();
-        credits.add(new Credit("cash", "10.02.2019", 150000));
-        credits.add(new Credit("mortgage", "21.03.2019", 10230));
+        List<Credit> credits = Arrays.asList(user.getCredits());
         sectionAdapter.addSection(new CreditSection(credits));
 
-        recyclerView = (RecyclerView) findViewById(R.id.profile_recycler_view);
+        recyclerView = findViewById(R.id.profile_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         recyclerView.setAdapter(sectionAdapter);
 
@@ -75,19 +78,19 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) { //Exit button pressed, delete login token!!!
-        if(item.getItemId() == R.id.action_exit) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //if(item.getItemId() == R.id.action_exit) {
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-        }
+        //}
         return true;
     }
 
     private void initToolbar() {
         Toolbar toolbar = findViewById(R.id.profile_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.user_name); //temporary, set user name dynamically later!!!
+        getSupportActionBar().setTitle(user.getFirstName() + " " + user.getMiddleName());
     }
 
     private void initBottomToolbar() {

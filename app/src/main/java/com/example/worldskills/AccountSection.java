@@ -11,7 +11,7 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 public class AccountSection extends StatelessSection {
-    List<Account> accountList;
+    private List<Account> accountList;
 
     public AccountSection(List<Account> list) {
         super(SectionParameters.builder()
@@ -40,33 +40,27 @@ public class AccountSection extends StatelessSection {
 
 class AccountViewHolder extends RecyclerView.ViewHolder {
 
-    TextView accountType, accountNumber, accountBalance;
-    String currentAccountString, rublesString;
+    private TextView accountName, accountNumber, accountBalance;
+    private String rublesString;
 
     public AccountViewHolder (View accountView) {
         super(accountView);
-        accountType = accountView.findViewById(R.id.accountView_text_type);
+        accountName = accountView.findViewById(R.id.accountView_text_type);
         accountNumber = accountView.findViewById(R.id.accountView_text_account_number);
         accountBalance = accountView.findViewById(R.id.acccountView_text_balance);
-        currentAccountString = itemView.getContext().getResources().getString(R.string.current_account);
         rublesString = itemView.getContext().getResources().getString(R.string.rubles);
     }
 
     public void bind(Account account) {
-        switch (account.getType()) {                              //any other types?
-            case "current":
-                accountType.setText(currentAccountString);
-                break;
+        accountName.setText(account.getAccountName());
 
-            //case ""
-        }
-
-        String accountNumberRaw = account.getNumber();
-        String accountNumberHidden = "****" + accountNumberRaw.substring(4); //**** 000000
+        String accountNumberRaw = account.getAccountNumber();
+        String accountNumberHidden = "****" + accountNumberRaw.substring(4); //**** 0000000
         accountNumber.setText(accountNumberHidden);
 
         DecimalFormat decimalFormat = new DecimalFormat("##0.00");
-        String balanceString = decimalFormat.format(account.getBalance()) + " " + rublesString;
+        double balance = account.getBalance()/100.0d;
+        String balanceString = decimalFormat.format(balance) + " " + rublesString;
         accountBalance.setText(balanceString);
     }
 }

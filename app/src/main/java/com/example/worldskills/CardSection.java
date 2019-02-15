@@ -12,7 +12,7 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 public class CardSection extends StatelessSection {
-    List<Card> cardList;
+    private List<Card> cardList;
 
     public CardSection(List<Card> list) {
         super(SectionParameters.builder()
@@ -41,16 +41,16 @@ public class CardSection extends StatelessSection {
 
 class CardViewHolder extends RecyclerView.ViewHolder {
 
-    TextView cardType, cardNumber, cardBalance;
-    ImageView cardCompany;
-    String rublesString, debitCardString, creditCardString;
+    private TextView cardType, cardNumber, cardBalance;
+    private ImageView cardName;
+    private String rublesString, debitCardString, creditCardString;
 
     public CardViewHolder (View cardView) {
         super(cardView);
         cardType = cardView.findViewById(R.id.cardView_text_card_type);
         cardNumber = cardView.findViewById(R.id.cardView_text_card_number);
         cardBalance = cardView.findViewById(R.id.cardView_text_balance);
-        cardCompany = cardView.findViewById(R.id.cardVIew_image_company);
+        cardName = cardView.findViewById(R.id.cardVIew_image_company);
         rublesString = itemView.getContext().getResources().getString(R.string.rubles);
         debitCardString = itemView.getContext().getResources().getString(R.string.debit_card);
         creditCardString = itemView.getContext().getResources().getString(R.string.credit_card);
@@ -59,36 +59,41 @@ class CardViewHolder extends RecyclerView.ViewHolder {
     public void bind(Card card) {
 
         switch(card.getType()) {
-            case "debit":
+            case 1:
                 cardType.setText(debitCardString);
                 break;
 
-            case "credit":
+            case 2:
                 cardType.setText(creditCardString);
                 break;
         }
 
-        String cardNumberRaw = card.getNumber();
+        String cardNumberRaw = card.getCardNumber();
         String cardNumberHidden = cardNumberRaw.substring(0, 4) // in case when card format is
                 + "********"            // 0000 0000 0000 0000 text is
                 + cardNumberRaw.substring(12); //0000 **** **** 0000
         cardNumber.setText(cardNumberHidden);
 
         DecimalFormat decimalFormat = new DecimalFormat("##0.00");
-        String balanceString = decimalFormat.format(card.getBalance()) + " " + rublesString;
+        double balance = card.getBalance()/100.0d;
+        String balanceString = decimalFormat.format(balance) + " " + rublesString;
         cardBalance.setText(balanceString);
 
-        switch (card.getCompany()) {
-            case "maestro":
-                cardCompany.setImageResource(R.drawable.maestro_card);
+        switch (card.getCardName()) {
+            case "Maestro":
+                cardName.setImageResource(R.drawable.maestro_card);
                 break;
 
-            case "visa":
-                cardCompany.setImageResource(R.drawable.visa_card);
+            case "Visa Classic":
+                cardName.setImageResource(R.drawable.visa_card);
                 break;
 
-            case "mir":
-                cardCompany.setImageResource(R.drawable.mir_card);
+            case "Mir":
+                cardName.setImageResource(R.drawable.mir_card);
+                break;
+
+            case "MasterCard":
+                cardName.setImageResource(R.drawable.mastercard_card);
                 break;
         }
     }

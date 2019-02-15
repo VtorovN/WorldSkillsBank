@@ -2,33 +2,36 @@ package com.example.worldskills;
 
 public class Card {
 
-    private String type, number, company;
-    private double balance;
+    private String cardNumber, cardName;
+    private int type;
+    private long balance;
+    private boolean isBlocked;
 
-    public Card(String type, String number, String company, double balance) {
+    public Card(String cardNumber, String cardName, int type, long balance, boolean isBlocked) {
+        this.cardNumber = cardNumber;
+        this.cardName = cardName;
         this.type = type;
-        this.number = number;
-        this.company = company;
         this.balance = balance;
+        this.isBlocked = isBlocked;
     }
 
-    public String getType() {
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public String getCardName() {
+        return cardName;
+    }
+
+    public int getType() {
         return type;
     }
 
-    public String getNumber() {
-        return number;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public double getBalance() {
+    public long getBalance() {
         return balance;
     }
 
-    public void setBalance(long balance) {
-        this.balance = balance;
+    public boolean isBlocked() {
+        return isBlocked;
     }
 }

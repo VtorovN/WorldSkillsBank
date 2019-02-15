@@ -48,7 +48,6 @@
 
     <!-- toolbar top -->
     <string name="exit_hint">Выход</string>
-    <string name="user_name">Сергей Владимирович</string> <!-- temporary!!! -->
 
     <!-- toolbar bottom -->
     <string name="home_hint">Главный</string>

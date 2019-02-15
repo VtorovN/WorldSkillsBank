@@ -1,29 +1,24 @@
 package com.example.worldskills;
 
 public class Credit {
+    private String creditName, paymentDate;
+    private long sum;
 
-    private String type, paymentDate; //Date format DD.MM.YYYY
-    private double money;
-
-    public Credit(String type, String paymentDate, double money) {
-        this.type = type;
+    public Credit(String creditName, String paymentDate, long sum) {
+        this.creditName = creditName;
         this.paymentDate = paymentDate;
-        this.money = money;
+        this.sum = sum;
     }
 
-    public String getType() {
-        return type;
+    public String getCreditName() {
+        return creditName;
     }
 
     public String getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(String paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
-    public double getMoney() {
-        return money;
+    public long getSum() {
+        return sum;
     }
 }

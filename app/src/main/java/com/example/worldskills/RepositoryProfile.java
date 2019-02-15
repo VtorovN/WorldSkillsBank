@@ -1,7 +1,5 @@
 package com.example.worldskills;
 
-import android.util.Log;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,6 +14,18 @@ public class RepositoryProfile {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProfileApi profileApi = retrofit.create(ProfileApi.class);
+        Call<User> userInfo = profileApi.getUserInfo(Token.getCurrentToken());
+        userInfo.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                listener.onGetUserData(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                listener.onGetUserData(null);
+            }
+        });
     }
 
     public static void getUserToken(String username, String password, final LoginDataListener listener) {
@@ -24,16 +34,21 @@ public class RepositoryProfile {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProfileApi profileApi = retrofit.create(ProfileApi.class);
-        Call<Token> login = profileApi.login(username, password);
+        Call<Token> login = profileApi.login(new LoginData(username, password));
         login.enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
-                listener.onGetToken(Token.getToken());
+                if (response.code() == 200) {
+                    Token.setCurrentToken(response.body().getToken());
+                    listener.onGetToken(true, "OK");
+                }
+                else if(response.code() == 404) listener.onGetToken(false, "Invalid login or password");
+                else listener.onGetToken(false, "Unknown error");
             }
 
             @Override
             public void onFailure(Call<Token> call, Throwable t) {
-                listener.onGetToken(null); //try/catch construction when called
+                listener.onGetToken(false, "Server error");
             }
         });
     }
