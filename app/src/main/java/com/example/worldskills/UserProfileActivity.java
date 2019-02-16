@@ -35,7 +35,8 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ProgressBar progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleSmall);
+        ProgressBar progressBar = new ProgressBar(this, null,
+                android.R.attr.progressBarStyleSmall);
         setContentView(progressBar);
         RepositoryProfile.getUserInfo(new UserDataListener() {
             @Override
@@ -50,6 +51,8 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+    public static User getUser() { return user; }
 
     private void initRV() {
         SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();

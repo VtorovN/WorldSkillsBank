@@ -9,22 +9,25 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class LoginDialogFragment extends DialogFragment {
 
-    private Context context;
     private Listener listener;
 
     public void setListener(Listener listener) { this.listener = listener; }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_DeviceDefault_Dialog_Alert);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),
+                android.R.style.Theme_DeviceDefault_Dialog_Alert);
         final LayoutInflater inflater = getActivity().getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.activity_login_popup, null))
+        builder.setView(inflater.inflate(R.layout.fragment_login, null))
                 .setMessage(R.string.login_title)
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
@@ -35,40 +38,98 @@ public class LoginDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.enter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getContext(), UserProfileActivity.class));
-                        if (getLogin() != "" && getPassword() != "") {
-                            RepositoryProfile.getUserToken(
-                                    getLogin(),
-                                    getPassword(),
-                                    new LoginDataListener() {
-                                        @Override
-                                        public void onGetToken(boolean isValid, String info) {
-                                            if (isValid) {
-                                                listener.onGetData();
-                                            } else {
-                                                Toast.makeText(context, info, Toast.LENGTH_LONG).show();
-                                            }
-                                        }
-                                    });
-                        } else {
-                            Toast.makeText(context, "Enter username and password", Toast.LENGTH_LONG).show();
-                        }
+                        //is overridden in onStart method
+                        //should stay empty
                     }
                 });
         return builder.create();
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
-        ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#00A0FF"));
-        ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#00A0FF"));
+
+        //for further use:
+
+        final FragmentManager manager = getFragmentManager();
+
+        final SuccessInfoDialogFragment successDialogFragment = new SuccessInfoDialogFragment();
+        final Bundle successBundle = new Bundle();
+
+        final ProgressDialogFragment progressDialogFragment = new ProgressDialogFragment();
+
+        final Listener successListener = new Listener() { //closes login dialog
+            @Override
+            public void onCompletion() {
+                dismiss();
+            }
+        };
+
+        AlertDialog dialog = (AlertDialog)getDialog();
+
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setTextColor(Color.parseColor("#00A0FF"));
+        positiveButton.setOnClickListener(new View.OnClickListener() { //this Listener doesn't dismiss
+            @Override                                                  //dialog when PB's clicked
+            public void onClick(View v) {
+                progressDialogFragment.show(getFragmentManager(), "progressDialog");
+                if (!getLogin().isEmpty() && !getPassword().isEmpty()) { //checks fields emptiness
+                    RepositoryProfile.getUserToken(
+                            getLogin(),
+                            getPassword(),
+                            new DataListener() {
+                                @Override
+                                public void onGetData(boolean isValid, String info) {
+                                    if (isValid) { //if data is ok
+                                        listener.onCompletion(); //goto UserProfileActivity
+                                        progressDialogFragment.dismiss();
+
+                                        //SuccessInfoDialog isn't necessary as
+                                        //Intent starts in the next moment
+
+                                        successListener.onCompletion(); //closes login dialog
+                                    } else { //bad data, login failed, dialog isn't closed
+                                        progressDialogFragment.dismiss();
+
+                                        successBundle.putBoolean("success", false);
+                                        successBundle.putString("info", info); //shows error
+                                        successDialogFragment.setArguments(successBundle);
+                                        successDialogFragment.show(getFragmentManager(),
+                                                "infoDialog");
+                                    }
+                                }
+                            });
+                } else if (getLogin().isEmpty() && !getPassword().isEmpty()) { //else == dialog
+                    progressDialogFragment.dismiss();                           //isn't closed
+
+                    successBundle.putBoolean("success", false);
+                    successBundle.putString("info",
+                            App.getContext().getString(R.string.message_enter_login));
+                    successDialogFragment.setArguments(successBundle);
+                    successDialogFragment.show(manager, "infoDialog");
+                }
+                else if (!getLogin().isEmpty() && getPassword().isEmpty()) {
+                    progressDialogFragment.dismiss();
+
+                    successBundle.putBoolean("success", false);
+                    successBundle.putString("info",
+                            App.getContext().getString(R.string.message_enter_password));
+                    successDialogFragment.setArguments(successBundle);
+                    successDialogFragment.show(manager, "infoDialog");
+                }
+                else {
+                    progressDialogFragment.dismiss();
+
+                    successBundle.putBoolean("success", false);
+                    successBundle.putString("info",
+                            App.getContext().getString(R.string.message_enter_login_and_password));
+                    successDialogFragment.setArguments(successBundle);
+                    successDialogFragment.show(manager, "infoDialog");
+                }
+            }
+        });
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                .setTextColor(Color.parseColor("#00A0FF"));
     }
 
     @NonNull

@@ -42,7 +42,7 @@ public class Currency {
             @Override
             public void onGetValueData(Rate rate) {
                 Currency.this.setCourse(rate.getCurrency(code));
-                listener.onGetData();
+                listener.onCompletion();
             }
         });
     }

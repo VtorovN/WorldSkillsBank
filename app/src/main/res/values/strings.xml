@@ -65,4 +65,19 @@
     <string name="visits_history">История посещений</string>
     <string name="app_info">Информация о приложении</string>
     <string name="exit">Выход</string>
+
+    <!-- Messages -->
+    <string name="message_enter_login_and_password">Пожалуйста, введите логин и пароль</string>
+    <string name="message_enter_login">Пожалуйста, введите логин</string>
+    <string name="message_enter_password">Пожалуйста, введите пароль</string>
+    <string name="message_success">Успешно</string>
+    <string name="message_server_error">Ошибка сервера</string>
+    <string name="message_unknown_error">Неизвестная ошибка</string>
+    <string name="message_invalid_login_data">Неверные данные для входа</string>
+
+    <!-- ProgressBarFragment -->
+    <string name="progress_title_wait">Пожалуйста, подождите</string>
+
+    <!-- SuccessInfoFragment -->
+    <string name="success_info_button_ok">ОК</string>
 </resources>

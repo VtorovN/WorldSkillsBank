@@ -66,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void signInButtonClick(View view) {
         LoginDialogFragment dialogFragment = new LoginDialogFragment();
-        dialogFragment.setListener(new Listener() { //should do other way? how? context in DialogFragment doesn't work
+        dialogFragment.setListener(new Listener() {
             @Override
-            public void onGetData() {
+            public void onCompletion() {
                 startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
             }
         });

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 
 public class ProfileFeaturesActivity extends AppCompatActivity {
 
@@ -15,6 +16,14 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
 
     public void onPasswordChangeClick(View view) {
         ChangePasswordDialogFragment dialogFragment = new ChangePasswordDialogFragment();
+        /*
+        dialogFragment.setListener(new Listener() {
+            @Override
+            public void onCompletion() {
+
+            }
+        });
+        */
         dialogFragment.show(getSupportFragmentManager(), "changePassword");
     }
 

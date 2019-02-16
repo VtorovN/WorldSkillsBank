@@ -48,7 +48,7 @@ public class CourseActivity extends AppCompatActivity {
         currencySet = new HashSet<>();
         final Currency currency = new Currency("USD", getResources().getString(R.string.usd_decoded), R.drawable.us_flag, new Listener() {
             @Override
-            public void onGetData() {
+            public void onCompletion() {
                 courseAdapter.setItems(currencySet);
                 progressBar.setVisibility(View.INVISIBLE);
             }
