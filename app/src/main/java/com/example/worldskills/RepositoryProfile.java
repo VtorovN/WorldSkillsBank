@@ -65,7 +65,8 @@ public class RepositoryProfile {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProfileApi profileApi = retrofit.create(ProfileApi.class);
-        Call<User> changeLoginData = profileApi.changeLogin(Token.getCurrentToken(), newLogin);
+        Call<User> changeLoginData = profileApi.changeLogin(Token.getCurrentToken(),
+                new NewLoginData(newLogin, null));
         changeLoginData.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -89,7 +90,8 @@ public class RepositoryProfile {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProfileApi profileApi = retrofit.create(ProfileApi.class);
-        Call<User> changePasswordData = profileApi.changePassword(Token.getCurrentToken(), newPassword);
+        Call<User> changePasswordData = profileApi.changePassword(Token.getCurrentToken(),
+                new NewLoginData(null, newPassword));
         changePasswordData.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

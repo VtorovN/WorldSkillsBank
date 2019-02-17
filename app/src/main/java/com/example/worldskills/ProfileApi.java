@@ -15,8 +15,8 @@ public interface ProfileApi {
     Call<User> getUserInfo(@Query("token") String token);
 
     @PATCH("user")
-    Call<User> changePassword(@Query("token") String token, @Body String newPassword);
+    Call<User> changePassword(@Query("token") String token, @Body NewLoginData newLoginData);
 
     @PATCH("user")
-    Call<User> changeLogin(@Query("token") String token, @Body String newLogin);
+    Call<User> changeLogin(@Query("token") String token, @Body NewLoginData newLoginData);
 }
