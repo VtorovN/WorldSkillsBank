@@ -64,7 +64,6 @@ public class ChangePasswordDialogFragment extends DialogFragment {
         Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
         positiveButton.setTextColor(Color.parseColor("#00A0FF"));
         final SuccessInfoDialogFragment successDialogFragment = new SuccessInfoDialogFragment();
-        final Bundle successBundle = new Bundle();
         final ProgressDialogFragment progressDialogFragment = new ProgressDialogFragment();
         final Listener successListener = new Listener() {
             @Override
@@ -80,34 +79,22 @@ public class ChangePasswordDialogFragment extends DialogFragment {
                     RepositoryProfile.changePassword(getPassword(), new DataListener() {
                         @Override
                         public void onGetData(boolean isValid, String info) {
+                                    progressDialogFragment.dismiss();
+
+                                    successDialogFragment.setArguments(SuccessBundle
+                                            .assemble(isValid, info));
+                                    successDialogFragment.show(getFragmentManager(),
+                                            "infoDialog");
                                     if (isValid) {
-                                        progressDialogFragment.dismiss();
-
-                                        successBundle.putBoolean("success", true);
-                                        successBundle.putString("info", info);
-                                        successDialogFragment.setArguments(successBundle);
-                                        successDialogFragment.show(getFragmentManager(),
-                                                "infoDialog");
-
                                         successListener.onCompletion();
-                                    } else {
-                                        progressDialogFragment.dismiss();
-
-                                        successBundle.putBoolean("success", false);
-                                        successBundle.putString("info", info);
-                                        successDialogFragment.setArguments(successBundle);
-                                        successDialogFragment.show(getFragmentManager(),
-                                                "infoDialog");
                                     }
                                 }
                             });
                 } else {
                     progressDialogFragment.dismiss();
 
-                    successBundle.putBoolean("success", false);
-                    successBundle.putString("info",
-                            App.getContext().getString(R.string.message_enter_password));
-                    successDialogFragment.setArguments(successBundle);
+                    successDialogFragment.setArguments(SuccessBundle.assemble(false,
+                            App.getContext().getString(R.string.message_enter_password)));
                     successDialogFragment.show(manager, "infoDialog");
                 }
             }

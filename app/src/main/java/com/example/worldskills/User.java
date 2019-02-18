@@ -5,6 +5,15 @@ public class User {
     private Card[] cards;
     private Account[] accounts;
     private Credit[] credits;
+    private static User currentUser;
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User currentUser) {
+        User.currentUser = currentUser;
+    }
 
     public String getFirstName() {
         return firstName;

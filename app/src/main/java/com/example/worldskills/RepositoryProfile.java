@@ -1,7 +1,5 @@
 package com.example.worldskills;
 
-import android.content.res.Resources;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -10,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RepositoryProfile {
 
-    public static void getUserInfo(final UserDataListener listener) {
+    public static void getUserInfo(final DataListener listener) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://92.63.64.193:10010/api/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -20,12 +18,20 @@ public class RepositoryProfile {
         userInfo.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                listener.onGetUserData(response.body());
+                if (response.code() == 200) {
+                    User.setCurrentUser(response.body());
+                    listener.onGetData(true,
+                            App.getContext().getString(R.string.message_success));
+                } else {
+                    listener.onGetData(false,
+                            App.getContext().getString(R.string.message_unknown_error));
+                }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                listener.onGetUserData(null);
+                listener.onGetData(false,
+                        App.getContext().getString(R.string.message_server_error));
             }
         });
     }
@@ -70,8 +76,11 @@ public class RepositoryProfile {
         changeLoginData.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.code() == 200) listener.onGetData(true,
-                        App.getContext().getString(R.string.message_success));
+                if (response.code() == 200) {
+                    listener.onGetData(true,
+                            App.getContext().getString(R.string.message_success));
+                    User.setCurrentUser(response.body());
+                }
                 else listener.onGetData(false,
                         App.getContext().getString(R.string.message_unknown_error));
             }
@@ -95,8 +104,11 @@ public class RepositoryProfile {
         changePasswordData.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.code() == 200) listener.onGetData(true,
-                        App.getContext().getString(R.string.message_success));
+                if (response.code() == 200) {
+                    listener.onGetData(true,
+                            App.getContext().getString(R.string.message_success));
+                    User.setCurrentUser(response.body());
+                }
                 else listener.onGetData(false,
                         App.getContext().getString(R.string.message_unknown_error));
             }

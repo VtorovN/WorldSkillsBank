@@ -38,16 +38,21 @@ public class UserProfileActivity extends AppCompatActivity {
         ProgressBar progressBar = new ProgressBar(this, null,
                 android.R.attr.progressBarStyleSmall);
         setContentView(progressBar);
-        RepositoryProfile.getUserInfo(new UserDataListener() {
+        RepositoryProfile.getUserInfo(new DataListener() {
             @Override
-            public void onGetUserData(User user) {
-                UserProfileActivity.user = user;
+            public void onGetData(boolean isValid, String info) {
+                if (isValid) {
+                    user = User.getCurrentUser();
 
-                setContentView(R.layout.activity_user_profile);
+                    setContentView(R.layout.activity_user_profile);
 
-                initToolbar();
-                initBottomToolbar();
-                initRV();
+                    initToolbar();
+                    initBottomToolbar();
+                    initRV();
+                } else {
+                    SuccessInfoDialogFragment dialogFragment = new SuccessInfoDialogFragment();
+                    dialogFragment.setArguments(SuccessBundle.assemble(false, info));
+                }
             }
         });
     }

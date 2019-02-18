@@ -54,7 +54,6 @@ public class LoginDialogFragment extends DialogFragment {
         final FragmentManager manager = getFragmentManager();
 
         final SuccessInfoDialogFragment successDialogFragment = new SuccessInfoDialogFragment();
-        final Bundle successBundle = new Bundle();
 
         final ProgressDialogFragment progressDialogFragment = new ProgressDialogFragment();
 
@@ -80,20 +79,18 @@ public class LoginDialogFragment extends DialogFragment {
                             new DataListener() {
                                 @Override
                                 public void onGetData(boolean isValid, String info) {
+                                    progressDialogFragment.dismiss();
                                     if (isValid) { //if data is ok
                                         listener.onCompletion(); //goto UserProfileActivity
-                                        progressDialogFragment.dismiss();
 
                                         //SuccessInfoDialog isn't necessary as
                                         //Intent starts in the next moment
 
                                         successListener.onCompletion(); //closes login dialog
                                     } else { //bad data, login failed, dialog isn't closed
-                                        progressDialogFragment.dismiss();
 
-                                        successBundle.putBoolean("success", false);
-                                        successBundle.putString("info", info); //shows error
-                                        successDialogFragment.setArguments(successBundle);
+                                        successDialogFragment.setArguments(SuccessBundle
+                                                .assemble(false, info));
                                         successDialogFragment.show(getFragmentManager(),
                                                 "infoDialog");
                                     }
@@ -102,28 +99,23 @@ public class LoginDialogFragment extends DialogFragment {
                 } else if (getLogin().isEmpty() && !getPassword().isEmpty()) { //else == dialog
                     progressDialogFragment.dismiss();                           //isn't closed
 
-                    successBundle.putBoolean("success", false);
-                    successBundle.putString("info",
-                            App.getContext().getString(R.string.message_enter_login));
-                    successDialogFragment.setArguments(successBundle);
+
+                    successDialogFragment.setArguments(SuccessBundle.assemble(false,
+                            App.getContext().getString(R.string.message_enter_login)));
                     successDialogFragment.show(manager, "infoDialog");
                 }
                 else if (!getLogin().isEmpty() && getPassword().isEmpty()) {
                     progressDialogFragment.dismiss();
 
-                    successBundle.putBoolean("success", false);
-                    successBundle.putString("info",
-                            App.getContext().getString(R.string.message_enter_password));
-                    successDialogFragment.setArguments(successBundle);
+                    successDialogFragment.setArguments(SuccessBundle.assemble(false,
+                            App.getContext().getString(R.string.message_enter_password)));
                     successDialogFragment.show(manager, "infoDialog");
                 }
                 else {
                     progressDialogFragment.dismiss();
 
-                    successBundle.putBoolean("success", false);
-                    successBundle.putString("info",
-                            App.getContext().getString(R.string.message_enter_login_and_password));
-                    successDialogFragment.setArguments(successBundle);
+                    successDialogFragment.setArguments(SuccessBundle.assemble(false,
+                            App.getContext().getString(R.string.message_enter_login_and_password)));
                     successDialogFragment.show(manager, "infoDialog");
                 }
             }
