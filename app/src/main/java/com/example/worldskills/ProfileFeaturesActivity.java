@@ -34,7 +34,24 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
     }
 
     public void onExitClick(View view) {
-        //delete user token here and solve problem with back button returning to this activity
-        startActivity(new Intent(this, MainActivity.class));
+        final ProgressDialogFragment fragment = new ProgressDialogFragment();
+        fragment.show(getSupportFragmentManager(), "progressDialog");
+        RepositoryProfile.logout(new DataListener() {
+            @Override
+            public void onGetData(boolean isValid, String info) {
+                fragment.dismiss();
+                if (isValid) {
+                    Intent intent = new Intent(ProfileFeaturesActivity.this,
+                            MainActivity.class);
+                    //clear previous activities to unable BackButton to return
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                } else {
+                    SuccessInfoDialogFragment dialogFragment = new SuccessInfoDialogFragment();
+                    dialogFragment.setArguments(SuccessBundle.assemble(false, info));
+                    dialogFragment.show(getSupportFragmentManager(), "successDialog");
+                }
+            }
+        });
     }
 }

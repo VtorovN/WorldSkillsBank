@@ -1,5 +1,6 @@
 package com.example.worldskills;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +37,7 @@ public class RepositoryProfile {
         });
     }
 
+    //login
     public static void getUserToken(String username, String password, final DataListener listener) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://92.63.64.193:10010/api/")
@@ -115,6 +117,33 @@ public class RepositoryProfile {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+                listener.onGetData(false,
+                        App.getContext().getString(R.string.message_server_error));
+            }
+        });
+    }
+
+    public static void logout(final DataListener listener) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://92.63.64.193:10010/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ProfileApi profileApi = retrofit.create(ProfileApi.class);
+        Call<ResponseBody> logout = profileApi.logout(Token.getCurrentToken());
+        logout.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    listener.onGetData(true,
+                            App.getContext().getString(R.string.message_success));
+                } else {
+                    listener.onGetData(false,
+                            App.getContext().getString(R.string.message_unknown_error) );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 listener.onGetData(false,
                         App.getContext().getString(R.string.message_server_error));
             }
