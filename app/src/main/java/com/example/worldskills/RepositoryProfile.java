@@ -15,7 +15,7 @@ public class RepositoryProfile {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProfileApi profileApi = retrofit.create(ProfileApi.class);
-        Call<User> userInfo = profileApi.getUserInfo(Token.getCurrentToken());
+        Call<User> userInfo = profileApi.getUserInfo(Token.getCurrentToken().getToken());
         userInfo.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -49,7 +49,7 @@ public class RepositoryProfile {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if (response.code() == 200) {
-                    Token.setCurrentToken(response.body().getToken());
+                    Token.setCurrentToken(response.body());
                     listener.onGetData(true,
                             App.getContext().getString(R.string.message_success));
                 }
@@ -73,7 +73,7 @@ public class RepositoryProfile {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProfileApi profileApi = retrofit.create(ProfileApi.class);
-        Call<User> changeLoginData = profileApi.changeLogin(Token.getCurrentToken(),
+        Call<User> changeLoginData = profileApi.changeLogin(Token.getCurrentToken().getToken(),
                 new NewLoginData(newLogin, null));
         changeLoginData.enqueue(new Callback<User>() {
             @Override
@@ -101,7 +101,7 @@ public class RepositoryProfile {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProfileApi profileApi = retrofit.create(ProfileApi.class);
-        Call<User> changePasswordData = profileApi.changePassword(Token.getCurrentToken(),
+        Call<User> changePasswordData = profileApi.changePassword(Token.getCurrentToken().getToken(),
                 new NewLoginData(null, newPassword));
         changePasswordData.enqueue(new Callback<User>() {
             @Override

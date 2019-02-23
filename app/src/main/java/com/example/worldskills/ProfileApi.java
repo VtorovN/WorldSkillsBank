@@ -14,7 +14,7 @@ public interface ProfileApi {
     Call<Token> login(@Body LoginData loginData);
 
     @DELETE("logout")
-    Call<ResponseBody> logout(@Query("token") String token);
+    Call<ResponseBody> logout(@Body Token token);
 
     @GET("user")
     Call<User> getUserInfo(@Query("token") String token);
