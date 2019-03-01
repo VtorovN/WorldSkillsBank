@@ -1,5 +1,9 @@
 package com.example.worldskills;
 
+import com.example.worldskills.Model.Account;
+import com.example.worldskills.Model.Card;
+import com.example.worldskills.Model.Credit;
+
 public class User {
     private String firstName, middleName, lastName, login;
     private Card[] cards;

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".MapActivity">
+    tools:context=".UI.MapActivity">
 
     <ProgressBar
         android:id="@+id/map_progress_bar"
