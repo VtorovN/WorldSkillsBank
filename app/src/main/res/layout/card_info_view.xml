@@ -13,7 +13,7 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <TextView
-        android:id="@+id/cardView_text_card_type"
+        android:id="@+id/cardView_text_card_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -26,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/cardVIew_image_company"
+        android:id="@+id/cardVIew_image_type"
         android:layout_width="32dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toStartOf="@+id/cardView_guideline_vertical_50"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView_text_card_type" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView_text_card_name" />
 
     <TextView
         android:id="@+id/cardView_text_card_number"
@@ -51,8 +51,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cardView_guideline_vertical_50"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/cardVIew_image_company"
-        app:layout_constraintTop_toBottomOf="@+id/cardView_text_card_type" />
+        app:layout_constraintStart_toEndOf="@+id/cardVIew_image_type"
+        app:layout_constraintTop_toBottomOf="@+id/cardView_text_card_name" />
 
     <TextView
         android:id="@+id/cardView_text_balance"

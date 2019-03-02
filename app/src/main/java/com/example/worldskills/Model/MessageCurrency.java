@@ -1,4 +1,4 @@
-package com.example.worldskills;
+package com.example.worldskills.Model;
 
 public class MessageCurrency {
     private boolean success;

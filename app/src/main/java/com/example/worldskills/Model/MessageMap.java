@@ -1,4 +1,4 @@
-package com.example.worldskills;
+package com.example.worldskills.Model;
 
 import com.example.worldskills.Model.ATM;
 

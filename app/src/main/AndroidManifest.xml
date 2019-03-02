@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UI.ProfileFeaturesActivity"/>
+        <activity android:name=".UI.CardActivity"></activity>
+        <activity android:name=".UI.ProfileFeaturesActivity" />
         <activity android:name=".UI.UserProfileActivity" />
         <activity android:name=".UI.MainActivity">
             <intent-filter>

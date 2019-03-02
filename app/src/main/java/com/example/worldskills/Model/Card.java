@@ -15,11 +15,11 @@ public class Card {
         this.isBlocked = isBlocked;
     }
 
-    public String getCardNumber() {
+    public String getNumber() {
         return cardNumber;
     }
 
-    public String getCardName() {
+    public String getName() {
         return cardName;
     }
 
@@ -33,5 +33,9 @@ public class Card {
 
     public boolean isBlocked() {
         return isBlocked;
+    }
+
+    public void setName(String cardName) {
+        this.cardName = cardName;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.worldskills;
+package com.example.worldskills.Model;
 
 public class Rate {
     private double USD, RUB; //RUB == EUR in RUB; Add other currencies if necessary

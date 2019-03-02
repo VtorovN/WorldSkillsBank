@@ -1,6 +1,6 @@
 package com.example.worldskills.API;
 
-import com.example.worldskills.MessageCurrency;
+import com.example.worldskills.Model.MessageCurrency;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

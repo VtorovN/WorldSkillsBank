@@ -28,13 +28,13 @@
     <string name="login_subtitle">Введите Ваш логин и пароль</string>
     <string name="login_hint">Логин</string>
     <string name="password_hint">Пароль</string>
-    <string name="cancel">Отмена</string>
-    <string name="enter">Войти</string>
 
     <!-- card -->
     <string name="my_cards_title">МОИ КАРТЫ</string>
-    <string name="debit_card">Дебетовая карта</string>
-    <string name="credit_card">Кредитная карта</string>
+    <string name="operations_history">История операций</string>
+    <string name="card_blocked">Карта заблокирована</string>
+    <string name="change_card_name">Введите новое название</string>
+    <string name="name_hint">Имя</string>
 
     <!-- account -->
     <string name="my_accounts_title">МОИ СЧЕТА</string>
@@ -80,4 +80,12 @@
 
     <!-- SuccessInfoFragment -->
     <string name="success_info_button_ok">ОК</string>
+
+    <!-- Actions -->
+    <string name="block">Заблокировать</string>
+    <string name="rename">Переименовать</string>
+    <string name="cancel">Отмена</string>
+    <string name="enter">Войти</string>
+    <string name="put_money">Пополнить</string>
+    <string name="transfer">Перевести</string>
 </resources>

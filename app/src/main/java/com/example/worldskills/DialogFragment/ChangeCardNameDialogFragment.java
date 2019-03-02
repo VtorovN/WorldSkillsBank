@@ -2,7 +2,6 @@ package com.example.worldskills.DialogFragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.worldskills.Model.Card;
 import com.example.worldskills.Utility.App;
 import com.example.worldskills.Listener.DataListener;
 import com.example.worldskills.Listener.Listener;
@@ -21,14 +21,16 @@ import com.example.worldskills.R;
 import com.example.worldskills.Repository.RepositoryProfile;
 import com.example.worldskills.Utility.SuccessBundle;
 
-public class ChangeLoginDialogFragment extends DialogFragment {
+public class ChangeCardNameDialogFragment extends DialogFragment {
+    private Card card;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),
                 android.R.style.Theme_DeviceDefault_Dialog_Alert);
         final LayoutInflater inflater = getActivity().getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.fragment_change_login, null))
-                .setMessage(R.string.change_login)
+        builder.setView(inflater.inflate(R.layout.fragment_change_card_name, null))
+                .setMessage(R.string.rename)
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -62,9 +64,9 @@ public class ChangeLoginDialogFragment extends DialogFragment {
         positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialogFragment.show(getFragmentManager(), "progressDialog");
-                if (!getLogin().isEmpty()) {
-                    RepositoryProfile.changeLogin(getLogin(),
+                progressDialogFragment.show(manager, "progressDialog");
+                if (!getName().isEmpty()) {
+                    RepositoryProfile.changeCardName(getName(), card.getNumber(),
                             new DataListener() {
                                 @Override
                                 public void onGetData(boolean isValid, String info) {
@@ -72,9 +74,10 @@ public class ChangeLoginDialogFragment extends DialogFragment {
 
                                     successDialogFragment.setArguments(SuccessBundle
                                             .assemble(isValid, info));
-                                    successDialogFragment.show(getFragmentManager(),
+                                    successDialogFragment.show(manager,
                                             "infoDialog");
                                     if (isValid) {
+                                        card.setName(getName());
                                         successListener.onCompletion();
                                     }
                                 }
@@ -84,7 +87,7 @@ public class ChangeLoginDialogFragment extends DialogFragment {
 
                     successDialogFragment.setArguments(SuccessBundle
                             .assemble(false,
-                            App.getContext().getString(R.string.message_enter_login)));
+                                    App.getContext().getString(R.string.message_enter_login)));
                     successDialogFragment.show(manager, "infoDialog");
                 }
             }
@@ -94,8 +97,12 @@ public class ChangeLoginDialogFragment extends DialogFragment {
     }
 
     @NonNull
-    private String getLogin() {
-        EditText loginView = getDialog().findViewById(R.id.change_login_edit);
-        return loginView.getText().toString();
+    private String getName() {
+        EditText nameView = getDialog().findViewById(R.id.change_card_name_edit);
+        return nameView.getText().toString();
+    }
+
+    public void setCardNumber(Card card) {
+        this.card = card;
     }
 }

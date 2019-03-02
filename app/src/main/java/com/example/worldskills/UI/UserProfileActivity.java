@@ -1,7 +1,6 @@
 package com.example.worldskills.UI;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -26,7 +25,7 @@ import com.example.worldskills.R;
 import com.example.worldskills.Repository.RepositoryProfile;
 import com.example.worldskills.Utility.SuccessBundle;
 import com.example.worldskills.DialogFragment.SuccessInfoDialogFragment;
-import com.example.worldskills.User;
+import com.example.worldskills.Model.User;
 
 import java.util.Arrays;
 import java.util.List;
@@ -103,29 +102,17 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        Toolbar toolbar = findViewById(R.id.profile_toolbar);
+        Toolbar toolbar = findViewById(R.id.profile_top_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(user.getFirstName() + " " + user.getMiddleName());
     }
 
     private void initBottomToolbar() {
         ImageButton homeButton = findViewById(R.id.action_home);
-        ImageButton paymentsButton = findViewById(R.id.action_payments);
-        ImageButton historyButton = findViewById(R.id.action_history);
-        ImageButton chatButton = findViewById(R.id.action_chat);
         homeButton.setBackground(getResources().getDrawable(R.drawable.icon_home_active,null));
-        paymentsButton.setBackground(getResources().getDrawable(R.drawable.icon_payments_inactive,null));
-        historyButton.setBackground(getResources().getDrawable(R.drawable.icon_history_inactive,null));
-        chatButton.setBackground(getResources().getDrawable(R.drawable.icon_chat_inactive,null));
 
         TextView homeText = findViewById(R.id.text_home);
-        TextView paymentsText = findViewById(R.id.text_payments);
-        TextView historyText = findViewById(R.id.text_history);
-        TextView chatText = findViewById(R.id.text_dialogues);
         homeText.setTextColor(getResources().getColor(R.color.colorAccent, null));
-        paymentsText.setTextColor(Color.parseColor("#FFFFFF"));
-        historyText.setTextColor(Color.parseColor("#FFFFFF"));
-        chatText.setTextColor(Color.parseColor("#FFFFFF"));
     }
 
     public void onHomeButtonClick(View view) { }

@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.worldskills.Utility.App;
 import com.example.worldskills.Listener.DataListener;
@@ -48,10 +47,13 @@ public class ChangePasswordDialogFragment extends DialogFragment {
                                     //should stay empty
                                 }
                             });
-                        else Toast.makeText(context,
-                                context.getString(R.string.message_enter_password),
-                                Toast.LENGTH_LONG)
-                                .show();
+                        else {
+                            SuccessInfoDialogFragment successDialogFragment =
+                                    new SuccessInfoDialogFragment();
+                            successDialogFragment.setArguments(SuccessBundle.assemble(false,
+                                    App.getContext().getString(R.string.message_enter_password)));
+                            successDialogFragment.show(getFragmentManager(), "infoDialog");
+                        }
                     }
                 });
         return builder.create();

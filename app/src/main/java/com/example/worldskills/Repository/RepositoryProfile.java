@@ -1,13 +1,15 @@
 package com.example.worldskills.Repository;
 
 import com.example.worldskills.API.ProfileApi;
+import com.example.worldskills.Model.Card;
+import com.example.worldskills.Model.NewCardName;
 import com.example.worldskills.Utility.App;
 import com.example.worldskills.Listener.DataListener;
-import com.example.worldskills.LoginData;
-import com.example.worldskills.NewLoginData;
+import com.example.worldskills.Model.LoginData;
+import com.example.worldskills.Model.NewLoginData;
 import com.example.worldskills.R;
-import com.example.worldskills.Token;
-import com.example.worldskills.User;
+import com.example.worldskills.Model.Token;
+import com.example.worldskills.Model.User;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -153,6 +155,35 @@ public class RepositoryProfile {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                listener.onGetData(false,
+                        App.getContext().getString(R.string.message_server_error));
+            }
+        });
+    }
+
+    public static void changeCardName(final String cardName, String cardNumber,
+                                      final DataListener listener) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://92.63.64.193:10010/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ProfileApi profileApi = retrofit.create(ProfileApi.class);
+        Call<Card> changeCardName = profileApi.changeCardName(cardNumber,
+                new NewCardName(cardName), Token.getCurrentToken().getToken());
+        changeCardName.enqueue(new Callback<Card>() {
+            @Override
+            public void onResponse(Call<Card> call, Response<Card> response) {
+                if (response.code() == 200) {
+                    listener.onGetData(true,
+                            App.getContext().getString(R.string.message_success));
+                } else {
+                    listener.onGetData(false,
+                            App.getContext().getString(R.string.message_unknown_error) );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Card> call, Throwable t) {
                 listener.onGetData(false,
                         App.getContext().getString(R.string.message_server_error));
             }

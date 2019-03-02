@@ -13,11 +13,11 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="@string/change_login_subtitle"
-        android:textColor="#CCCCCC"/>
+        android:text="@string/change_card_name"
+        android:textColor="#CCCCCC" />
 
     <android.support.design.widget.TextInputEditText
-        android:id="@+id/change_login_edit"
+        android:id="@+id/change_card_name_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/change_card_name_text_subtitle"
@@ -27,7 +27,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        android:hint="@string/login_hint"
+        android:hint="@string/name_hint"
         android:inputType="text"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"

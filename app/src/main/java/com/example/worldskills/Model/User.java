@@ -1,8 +1,4 @@
-package com.example.worldskills;
-
-import com.example.worldskills.Model.Account;
-import com.example.worldskills.Model.Card;
-import com.example.worldskills.Model.Credit;
+package com.example.worldskills.Model;
 
 public class User {
     private String firstName, middleName, lastName, login;

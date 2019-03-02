@@ -5,9 +5,9 @@ import com.example.worldskills.Listener.CurrencyDataListener;
 import com.example.worldskills.Listener.CurrencySeparatedDataListener;
 import com.example.worldskills.Listener.CurrencyValueDataListener;
 import com.example.worldskills.Listener.Listener;
-import com.example.worldskills.MessageCurrency;
+import com.example.worldskills.Model.MessageCurrency;
 import com.example.worldskills.Model.Currency;
-import com.example.worldskills.Rate;
+import com.example.worldskills.Model.Rate;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -2,7 +2,6 @@ package com.example.worldskills.Model;
 
 import com.example.worldskills.Listener.CurrencyValueDataListener;
 import com.example.worldskills.Listener.Listener;
-import com.example.worldskills.Rate;
 import com.example.worldskills.Repository.RepositoryCurrency;
 
 public class Currency {

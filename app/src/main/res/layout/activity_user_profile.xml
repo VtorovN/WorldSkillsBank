@@ -8,7 +8,7 @@
     tools:context=".UI.UserProfileActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/profile_toolbar"
+        android:id="@+id/profile_top_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -29,12 +29,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/profile_top_toolbar"
         app:layout_constraintVertical_bias="0.0" />
 
     <include
         android:id="@+id/profile_bottom_toolbar"
-        layout="@layout/profile_bottom_toolbar_layout"
+        layout="@layout/profile_bottom_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

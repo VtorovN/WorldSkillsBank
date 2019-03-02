@@ -10,7 +10,7 @@ import com.example.worldskills.Listener.CurrencyValueDataListener;
 import com.example.worldskills.Listener.Listener;
 import com.example.worldskills.DialogFragment.LoginDialogFragment;
 import com.example.worldskills.R;
-import com.example.worldskills.Rate;
+import com.example.worldskills.Model.Rate;
 import com.example.worldskills.Repository.RepositoryCurrency;
 
 import java.text.DecimalFormat;

@@ -1,5 +1,6 @@
 package com.example.worldskills.RVAdapter.SectionedRV;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.worldskills.Model.Card;
 import com.example.worldskills.R;
+import com.example.worldskills.UI.CardActivity;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -44,34 +46,33 @@ public class CardSection extends StatelessSection {
 
 class CardViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView cardType, cardNumber, cardBalance;
-    private ImageView cardName;
+    private TextView cardName, cardNumber, cardBalance;
+    private ImageView cardType;
     private String rublesString, debitCardString, creditCardString;
 
     public CardViewHolder (View cardView) {
         super(cardView);
-        cardType = cardView.findViewById(R.id.cardView_text_card_type);
+        cardName = cardView.findViewById(R.id.cardView_text_card_name);
         cardNumber = cardView.findViewById(R.id.cardView_text_card_number);
         cardBalance = cardView.findViewById(R.id.cardView_text_balance);
-        cardName = cardView.findViewById(R.id.cardVIew_image_company);
+        cardType = cardView.findViewById(R.id.cardVIew_image_type);
         rublesString = itemView.getContext().getResources().getString(R.string.rubles);
-        debitCardString = itemView.getContext().getResources().getString(R.string.debit_card);
-        creditCardString = itemView.getContext().getResources().getString(R.string.credit_card);
+        cardView.setOnClickListener(new View.OnClickListener() { //find way to get card directly?
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), CardActivity.class);
+                intent.putExtra("cardLastDigits",
+                        cardNumber.getText().toString().substring(12));
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     public void bind(Card card) {
 
-        switch(card.getType()) {
-            case 1:
-                cardType.setText(debitCardString);
-                break;
+        cardName.setText(card.getName());
 
-            case 2:
-                cardType.setText(creditCardString);
-                break;
-        }
-
-        String cardNumberRaw = card.getCardNumber();
+        String cardNumberRaw = card.getNumber();
         String cardNumberHidden = cardNumberRaw.substring(0, 4) // in case when card format is
                 + "********"            // 0000 0000 0000 0000 text is
                 + cardNumberRaw.substring(12); //0000 **** **** 0000
@@ -82,21 +83,21 @@ class CardViewHolder extends RecyclerView.ViewHolder {
         String balanceString = decimalFormat.format(balance) + " " + rublesString;
         cardBalance.setText(balanceString);
 
-        switch (card.getCardName()) {
-            case "Maestro":
-                cardName.setImageResource(R.drawable.maestro_card);
+        switch (card.getType()) {
+            case 1:
+            cardType.setImageResource(R.drawable.visa_card);
+            break;
+
+            case 2:
+                cardType.setImageResource(R.drawable.mastercard_card);
                 break;
 
-            case "Visa Classic":
-                cardName.setImageResource(R.drawable.visa_card);
+            case 3:
+                cardType.setImageResource(R.drawable.maestro_card);
                 break;
 
-            case "Mir":
-                cardName.setImageResource(R.drawable.mir_card);
-                break;
-
-            case "MasterCard":
-                cardName.setImageResource(R.drawable.mastercard_card);
+            case 4:
+                cardType.setImageResource(R.drawable.mir_card);
                 break;
         }
     }
