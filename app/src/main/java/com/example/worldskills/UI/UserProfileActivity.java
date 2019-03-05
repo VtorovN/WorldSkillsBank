@@ -37,7 +37,8 @@ import static android.support.v7.widget.RecyclerView.VERTICAL;
 public class UserProfileActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    private static User user;
+    private User user;
+    private static UserProfileActivity currentActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onGetData(boolean isValid, String info) {
                 if (isValid) {
+                    currentActivity = UserProfileActivity.this;
                     user = User.getCurrentUser();
 
                     setContentView(R.layout.activity_user_profile);
@@ -63,8 +65,6 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
     }
-
-    public static User getUser() { return user; }
 
     private void initRV() {
         SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
@@ -127,5 +127,10 @@ public class UserProfileActivity extends AppCompatActivity {
 
     public void onChatButtonClick(View view) {
         //startActivity(new Intent(UserProfileActivity.this, ChatActivity.class));
+    }
+
+    public static void refreshData() {
+        currentActivity.initRV();
+        currentActivity.initToolbar();
     }
 }

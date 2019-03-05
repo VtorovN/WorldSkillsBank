@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.worldskills.DialogFragment.ChangeCardNameDialogFragment;
+import com.example.worldskills.Listener.DataListener;
 import com.example.worldskills.Model.Card;
 import com.example.worldskills.R;
 import com.example.worldskills.Model.User;
@@ -37,7 +38,7 @@ public class CardActivity extends AppCompatActivity {
             }
         }
 
-        initCardView(currentCard);
+        initCardView();
         initBottomToolbar();
         initToolbar();
     }
@@ -56,7 +57,7 @@ public class CardActivity extends AppCompatActivity {
         return true;
     }
 
-    private void initCardView(Card card) {
+    private void initCardView() {
         TextView cardName = findViewById(R.id.card_name);
         TextView cardNumber = findViewById(R.id.card_number);
         TextView cardBalance = findViewById(R.id.card_balance);
@@ -64,28 +65,28 @@ public class CardActivity extends AppCompatActivity {
         LinearLayout cardActions = findViewById(R.id.card_actions_layout);
         ImageView cardType = findViewById(R.id.card_type);
 
-        if (card.isBlocked()) {
+        if (currentCard.isBlocked()) {
             cardActions.setVisibility(View.INVISIBLE);
         }
         else {
             cardBlocked.setVisibility(View.INVISIBLE);
         }
 
-        cardName.setText(card.getName());
+        cardName.setText(currentCard.getName());
 
-        String cardNumberRaw = card.getNumber();
+        String cardNumberRaw = currentCard.getNumber();
         String cardNumberHidden = cardNumberRaw.substring(0, 4) // in case when card format is
                 + "********"            // 0000 0000 0000 0000 text is
                 + cardNumberRaw.substring(12); //0000 **** **** 0000
         cardNumber.setText(cardNumberHidden);
 
         DecimalFormat decimalFormat = new DecimalFormat("##0.00");
-        double balance = card.getBalance()/100.0d;
+        double balance = currentCard.getBalance()/100.0d;
         String balanceString = decimalFormat.format(balance) + " " +
                 getBaseContext().getString(R.string.rubles);
         cardBalance.setText(balanceString);
 
-        switch (card.getType()) {
+        switch (currentCard.getType()) {
             case 1:
                 cardType.setImageResource(R.drawable.visa_card);
                 break;
@@ -137,11 +138,20 @@ public class CardActivity extends AppCompatActivity {
 
     public void onCardRenameClick(View view) {
         ChangeCardNameDialogFragment dialogFragment = new ChangeCardNameDialogFragment();
-        dialogFragment.setCardNumber(currentCard);
+        dialogFragment.setCard(currentCard);
+        dialogFragment.setListener(new DataListener() {
+            @Override
+            public void onGetData(boolean isValid, String info) {
+                initCardView();
+                UserProfileActivity.refreshData();
+            }
+        });
         dialogFragment.show(getSupportFragmentManager(), "cardRename");
     }
 
-    public void onHomeButtonClick(View view) { }
+    public void onHomeButtonClick(View view) {
+        super.finish();
+    }
 
     public void onPaymentsButtonClick(View view) {
         //startActivity(new Intent(CardActivity.this, PaymentsActivity.class));

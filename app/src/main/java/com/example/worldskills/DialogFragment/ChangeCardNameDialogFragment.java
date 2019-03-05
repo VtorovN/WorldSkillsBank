@@ -23,6 +23,7 @@ import com.example.worldskills.Utility.SuccessBundle;
 
 public class ChangeCardNameDialogFragment extends DialogFragment {
     private Card card;
+    private DataListener listener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -78,6 +79,7 @@ public class ChangeCardNameDialogFragment extends DialogFragment {
                                             "infoDialog");
                                     if (isValid) {
                                         card.setName(getName());
+                                        listener.onGetData(true, getName());
                                         successListener.onCompletion();
                                     }
                                 }
@@ -102,7 +104,11 @@ public class ChangeCardNameDialogFragment extends DialogFragment {
         return nameView.getText().toString();
     }
 
-    public void setCardNumber(Card card) {
+    public void setCard(Card card) {
         this.card = card;
+    }
+
+    public void setListener(DataListener listener) {
+        this.listener = listener;
     }
 }
