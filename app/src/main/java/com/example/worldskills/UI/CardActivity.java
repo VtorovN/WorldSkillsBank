@@ -14,8 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.worldskills.DialogFragment.BlockCardDialogFragment;
 import com.example.worldskills.DialogFragment.ChangeCardNameDialogFragment;
 import com.example.worldskills.Listener.DataListener;
+import com.example.worldskills.Listener.Listener;
 import com.example.worldskills.Model.Card;
 import com.example.worldskills.R;
 import com.example.worldskills.Model.User;
@@ -94,6 +96,10 @@ public class CardActivity extends AppCompatActivity {
         cardBalance.setText(balanceString);
 
         switch (currentCard.getType()) {
+            case 0:
+                cardType.setImageResource(R.drawable.mir_card);
+                break;
+
             case 1:
                 cardType.setImageResource(R.drawable.visa_card);
                 break;
@@ -104,10 +110,6 @@ public class CardActivity extends AppCompatActivity {
 
             case 3:
                 cardType.setImageResource(R.drawable.maestro_card);
-                break;
-
-            case 4:
-                cardType.setImageResource(R.drawable.mir_card);
                 break;
         }
     }
@@ -143,7 +145,15 @@ public class CardActivity extends AppCompatActivity {
     }
 
     public void onCardBlockClick(View view) {
-        //block card
+        BlockCardDialogFragment dialogFragment = new BlockCardDialogFragment();
+        dialogFragment.setCard(currentCard);
+        dialogFragment.setListener(new Listener() {
+            @Override
+            public void onCompletion() {
+                initCardView();
+            }
+        });
+        dialogFragment.show(getSupportFragmentManager(), "cardBlock");
     }
 
     public void onCardRenameClick(View view) {

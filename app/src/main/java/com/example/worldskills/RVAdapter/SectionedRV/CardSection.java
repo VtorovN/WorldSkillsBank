@@ -84,6 +84,10 @@ class CardViewHolder extends RecyclerView.ViewHolder {
         cardBalance.setText(balanceString);
 
         switch (card.getType()) {
+            case 0:
+                cardType.setImageResource(R.drawable.mir_card);
+                break;
+
             case 1:
             cardType.setImageResource(R.drawable.visa_card);
             break;
@@ -94,10 +98,6 @@ class CardViewHolder extends RecyclerView.ViewHolder {
 
             case 3:
                 cardType.setImageResource(R.drawable.maestro_card);
-                break;
-
-            case 4:
-                cardType.setImageResource(R.drawable.mir_card);
                 break;
         }
     }

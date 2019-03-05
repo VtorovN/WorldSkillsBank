@@ -12,6 +12,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -22,7 +23,11 @@ public interface ProfileApi {
     @POST("login")
     Call<Token> login(@Body LoginData loginData);
 
-    @DELETE("logout")
+    //this doesn't work. "Non-body HTTP method cannot contain @Body"
+    //@DELETE("logout")
+    //Call<ResponseBody> logout(@Body Token token);
+
+    @HTTP(method = "DELETE", path = "logout", hasBody = true)
     Call<ResponseBody> logout(@Body Token token);
 
     @GET("user")
@@ -31,6 +36,9 @@ public interface ProfileApi {
     @PUT("user/card/{cardNumber}/name")
     Call<Card> changeCardName(@Path("cardNumber") String cardNumber, @Body NewCardName cardName,
                               @Query("token") String token);
+
+    @PUT("user/card/{cardNumber}/block")
+    Call<Card> blockCard(@Path("cardNumber") String cardNumber, @Query("token") String token);
 
     @PATCH("user")
     Call<User> changePassword(@Query("token") String token, @Body NewLoginData newLoginData);

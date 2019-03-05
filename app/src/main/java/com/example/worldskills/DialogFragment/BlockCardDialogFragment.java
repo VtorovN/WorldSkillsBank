@@ -13,32 +13,33 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.worldskills.Model.Card;
-import com.example.worldskills.Utility.App;
 import com.example.worldskills.Listener.DataListener;
 import com.example.worldskills.Listener.Listener;
+import com.example.worldskills.Model.Card;
+import com.example.worldskills.Model.User;
 import com.example.worldskills.R;
 import com.example.worldskills.Repository.RepositoryProfile;
+import com.example.worldskills.Utility.App;
 import com.example.worldskills.Utility.SuccessBundle;
 
-public class ChangeCardNameDialogFragment extends DialogFragment {
+public class BlockCardDialogFragment extends DialogFragment {
     private Card card;
-    private DataListener listener;
+    private Listener listener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),
                 android.R.style.Theme_DeviceDefault_Dialog_Alert);
         final LayoutInflater inflater = getActivity().getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.fragment_change_card_name, null))
-                .setMessage(R.string.rename)
+        builder.setView(inflater.inflate(R.layout.fragment_block_card, null))
+                .setMessage(R.string.block)
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dismiss();
                     }
                 })
-                .setPositiveButton(R.string.change, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.block, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //should stay empty
@@ -66,30 +67,44 @@ public class ChangeCardNameDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 progressDialogFragment.show(manager, "progressDialog");
-                if (!getName().isEmpty()) {
-                    RepositoryProfile.changeCardName(getName(), card.getNumber(),
+                if (!getPassword().isEmpty()) {
+                    RepositoryProfile.getUserToken(User.getCurrentUser().getLogin(), getPassword(),
                             new DataListener() {
-                                @Override
-                                public void onGetData(boolean isValid, String info) {
-                                    progressDialogFragment.dismiss();
+                        @Override
+                        public void onGetData(boolean isValid, String info) {
+                            if (isValid) {
+                                RepositoryProfile.blockCard(card.getNumber(),
+                                        new DataListener() {
+                                            @Override
+                                            public void onGetData(boolean isValid, String info) {
+                                                progressDialogFragment.dismiss();
 
-                                    successDialogFragment.setArguments(SuccessBundle
-                                            .assemble(isValid, info));
-                                    successDialogFragment.show(manager,
-                                            "infoDialog");
-                                    if (isValid) {
-                                        card.setName(getName());
-                                        listener.onGetData(true, getName());
-                                        successListener.onCompletion();
-                                    }
-                                }
-                            });
+                                                successDialogFragment.setArguments(SuccessBundle
+                                                        .assemble(isValid, info));
+                                                successDialogFragment.show(manager,
+                                                        "infoDialog");
+                                                if (isValid) {
+                                                    card.setBlocked(true);
+                                                    listener.onCompletion();
+                                                    successListener.onCompletion();
+                                                }
+                                            }
+                                        });
+                            } else {
+                                progressDialogFragment.dismiss();
+                                successDialogFragment.setArguments(SuccessBundle
+                                        .assemble(false, info));
+                                successDialogFragment.show(getFragmentManager(),
+                                        "infoDialog");
+                            }
+                        }
+                    });
                 } else {
                     progressDialogFragment.dismiss();
 
                     successDialogFragment.setArguments(SuccessBundle
                             .assemble(false,
-                                    App.getContext().getString(R.string.message_enter_card_name)));
+                                    App.getContext().getString(R.string.message_enter_password)));
                     successDialogFragment.show(manager, "infoDialog");
                 }
             }
@@ -98,17 +113,17 @@ public class ChangeCardNameDialogFragment extends DialogFragment {
                 .setTextColor(Color.parseColor("#00A0FF"));
     }
 
-    @NonNull
-    private String getName() {
-        EditText nameView = getDialog().findViewById(R.id.change_card_name_edit);
-        return nameView.getText().toString();
-    }
-
     public void setCard(Card card) {
         this.card = card;
     }
 
-    public void setListener(DataListener listener) {
+    public void setListener(Listener listener) {
         this.listener = listener;
+    }
+
+    @NonNull
+    private String getPassword() {
+        EditText passwordView = getDialog().findViewById(R.id.block_card_password_edit);
+        return passwordView.getText().toString();
     }
 }

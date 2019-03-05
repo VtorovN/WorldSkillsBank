@@ -38,4 +38,8 @@ public class Card {
     public void setName(String cardName) {
         this.cardName = cardName;
     }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
 }

@@ -33,6 +33,7 @@
     <string name="my_cards_title">МОИ КАРТЫ</string>
     <string name="operations_history">История операций</string>
     <string name="card_blocked">Карта заблокирована</string>
+    <string name="card_block_confirmation">Вы уверены, что хотите заблокировать карту?</string>
     <string name="change_card_name">Введите новое название</string>
     <string name="name_hint">Имя</string>
 
@@ -70,6 +71,7 @@
     <string name="message_enter_login_and_password">Пожалуйста, введите логин и пароль</string>
     <string name="message_enter_login">Пожалуйста, введите логин</string>
     <string name="message_enter_password">Пожалуйста, введите пароль</string>
+    <string name="message_enter_card_name">Пожалуйста, введите имя карты</string>
     <string name="message_success">Успешно</string>
     <string name="message_server_error">Ошибка сервера</string>
     <string name="message_unknown_error">Неизвестная ошибка</string>

@@ -189,4 +189,31 @@ public class RepositoryProfile {
             }
         });
     }
+
+    public static void blockCard(String cardNumber, final DataListener listener) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://92.63.64.193:10010/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ProfileApi profileApi = retrofit.create(ProfileApi.class);
+        Call<Card> cardBlock = profileApi.blockCard(cardNumber, Token.getCurrentToken().getToken());
+        cardBlock.enqueue(new Callback<Card>() {
+            @Override
+            public void onResponse(Call<Card> call, Response<Card> response) {
+                if (response.code() == 200) {
+                    listener.onGetData(true,
+                            App.getContext().getString(R.string.message_success));
+                } else {
+                    listener.onGetData(false,
+                            App.getContext().getString(R.string.message_unknown_error) );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Card> call, Throwable t) {
+                listener.onGetData(false,
+                        App.getContext().getString(R.string.message_server_error));
+            }
+        });
+    }
 }
