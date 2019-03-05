@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.worldskills.DialogFragment.BlockCardDialogFragment;
@@ -21,11 +22,12 @@ import com.example.worldskills.Listener.Listener;
 import com.example.worldskills.Model.Card;
 import com.example.worldskills.R;
 import com.example.worldskills.Model.User;
+import com.example.worldskills.Repository.RepositoryProfile;
 
 import java.text.DecimalFormat;
 
 public class CardActivity extends AppCompatActivity {
-    private Card currentCard;
+    private static Card currentCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,7 +143,7 @@ public class CardActivity extends AppCompatActivity {
     }
 
     public void onCardHistoryClick(View view) {
-        //startActivity(new Intent(CardActivity.this, CardHistoryActivity.class));
+        startActivity(new Intent(CardActivity.this, OperationsHistoryActivity.class));
     }
 
     public void onCardBlockClick(View view) {
@@ -183,5 +185,9 @@ public class CardActivity extends AppCompatActivity {
 
     public void onChatButtonClick(View view) {
         //startActivity(new Intent(CardActivity.this, ChatActivity.class));
+    }
+
+    public static Card getCurrentCard() {
+        return currentCard;
     }
 }

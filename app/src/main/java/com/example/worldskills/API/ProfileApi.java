@@ -4,13 +4,13 @@ import com.example.worldskills.Model.Card;
 import com.example.worldskills.Model.LoginData;
 import com.example.worldskills.Model.NewCardName;
 import com.example.worldskills.Model.NewLoginData;
+import com.example.worldskills.Model.Operation;
 import com.example.worldskills.Model.Token;
 import com.example.worldskills.Model.User;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.PATCH;
@@ -32,6 +32,10 @@ public interface ProfileApi {
 
     @GET("user")
     Call<User> getUserInfo(@Query("token") String token);
+
+    @GET("user/card/{cardNumber}/history")
+    Call<Operation[]> getCardOperationsHistory(@Path("cardNumber") String cardNumber,
+                                               @Query("token") String token);
 
     @PUT("user/card/{cardNumber}/name")
     Call<Card> changeCardName(@Path("cardNumber") String cardNumber, @Body NewCardName cardName,

@@ -16,15 +16,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UI.CardActivity"
-            android:parentActivityName=".UI.UserProfileActivity">
-
+        <activity android:name=".UI.OperationsHistoryActivity"
+            android:parentActivityName=".UI.CardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UI.CardActivity" />
+        </activity>
+        <activity
+            android:name=".UI.CardActivity"
+            android:parentActivityName=".UI.UserProfileActivity"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".UI.UserProfileActivity" />
         </activity>
         <activity android:name=".UI.ProfileFeaturesActivity" />
-        <activity android:name=".UI.UserProfileActivity"></activity>
+        <activity android:name=".UI.UserProfileActivity"
+            android:launchMode="singleTop"> </activity>
         <activity android:name=".UI.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

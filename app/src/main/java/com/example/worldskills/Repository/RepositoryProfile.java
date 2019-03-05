@@ -1,8 +1,10 @@
 package com.example.worldskills.Repository;
 
 import com.example.worldskills.API.ProfileApi;
+import com.example.worldskills.Listener.HistoryListener;
 import com.example.worldskills.Model.Card;
 import com.example.worldskills.Model.NewCardName;
+import com.example.worldskills.Model.Operation;
 import com.example.worldskills.Utility.App;
 import com.example.worldskills.Listener.DataListener;
 import com.example.worldskills.Model.LoginData;
@@ -212,6 +214,34 @@ public class RepositoryProfile {
             @Override
             public void onFailure(Call<Card> call, Throwable t) {
                 listener.onGetData(false,
+                        App.getContext().getString(R.string.message_server_error));
+            }
+        });
+    }
+
+    public static void getCardOperationsHistory(String cardNumber, final HistoryListener listener) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://92.63.64.193:10010/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ProfileApi profileApi = retrofit.create(ProfileApi.class);
+        Call<Operation[]> operationsHistory = profileApi.getCardOperationsHistory(cardNumber,
+                Token.getCurrentToken().getToken());
+        operationsHistory.enqueue(new Callback<Operation[]>() {
+            @Override
+            public void onResponse(Call<Operation[]> call, Response<Operation[]> response) {
+                if (response.code() == 200) {
+                    listener.onGetHistory(response.body(),true,
+                            App.getContext().getString(R.string.message_success));
+                } else {
+                    listener.onGetHistory(null,false,
+                            App.getContext().getString(R.string.message_unknown_error) );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Operation[]> call, Throwable t) {
+                listener.onGetHistory(null,false,
                         App.getContext().getString(R.string.message_server_error));
             }
         });

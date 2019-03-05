@@ -59,9 +59,6 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ATMViewHolder> {
             hours = itemView.getResources().getString(R.string.hours);
             open = itemView.getResources().getString(R.string.open);
             close = itemView.getResources().getString(R.string.close);
-
-            //red = itemView.getResources().getColor(R.color.red, null);
-            //green = itemView.getResources().getColor(R.color.green, null);
         }
 
         public void bind(ATM atm) {
