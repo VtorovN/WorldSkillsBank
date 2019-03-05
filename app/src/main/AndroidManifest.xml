@@ -16,9 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UI.CardActivity"></activity>
+        <activity android:name=".UI.CardActivity"
+            android:parentActivityName=".UI.UserProfileActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UI.UserProfileActivity" />
+        </activity>
         <activity android:name=".UI.ProfileFeaturesActivity" />
-        <activity android:name=".UI.UserProfileActivity" />
+        <activity android:name=".UI.UserProfileActivity"></activity>
         <activity android:name=".UI.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

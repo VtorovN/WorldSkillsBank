@@ -1,6 +1,8 @@
 package com.example.worldskills.UI;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -51,8 +53,13 @@ public class CardActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.action_profile_features) {
-            startActivity(new Intent(this, ProfileFeaturesActivity.class));
+        switch (item.getItemId()) {
+            case (R.id.action_profile_features):
+                startActivity(new Intent(this, ProfileFeaturesActivity.class));
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
         return true;
     }
@@ -110,6 +117,9 @@ public class CardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(User.getCurrentUser().getFirstName() + " "
                 + User.getCurrentUser().getMiddleName());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.getNavigationIcon()
+                .setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
     }
 
     private void initBottomToolbar() {
