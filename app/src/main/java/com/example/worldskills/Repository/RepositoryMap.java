@@ -11,14 +11,22 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RepositoryMap {
+    private static Retrofit retrofit;
+    private static MapApi mapApi;
+
+    private static void buildRetrofitAndApi() {
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("http://api.areas.su/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            mapApi = retrofit.create(MapApi.class);
+        }
+    }
 
     public static void getMap(final MapDataListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.areas.su/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        buildRetrofitAndApi();
 
-        MapApi mapApi = retrofit.create(MapApi.class);
         Call<ATM[]> messageMap = mapApi.map();
 
         messageMap.enqueue(new Callback<ATM[]>() {

@@ -23,17 +23,22 @@ public class RepositoryCurrency{
     private static boolean realReady, historicalReady;
     private static double historicalCourse;
     private static CurrencySeparatedDataListener sListener;
+    private static Retrofit retrofit;
+    private static CurrencyApi currencyApi;
+
+    private static void buildRetrofitAndApi() {
+        if (retrofit == null || currencyApi == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("http://data.fixer.io/api/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            CurrencyApi currencyApi = retrofit.create(CurrencyApi.class);
+        }
+    }
 
     public static void getCurrency(final String code, String decoded, int flagId, Listener listener, final CurrencyDataListener cListener) {
         final Currency currency = new Currency(code, decoded, flagId, listener);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://data.fixer.io/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        CurrencyApi currencyApi = retrofit.create(CurrencyApi.class);
-
+        buildRetrofitAndApi();
         SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-dd-MM");
         Date pastDate = new Date((long)((new Date()).getTime() - 8.64e+7));
 
@@ -74,13 +79,18 @@ public class RepositoryCurrency{
         messageLatest.enqueue(new Callback<MessageCurrency>() {
             @Override
             public void onResponse(Call<MessageCurrency> call, Response<MessageCurrency> response) {
-                if (response.body().getSuccess()) {
-                    currency.setCourse(response.body().getRates().getCurrency(code));
-                    sListener.onGetRealTimeData(currency, cListener);
-                }
-                else {
+                try {
+                    if (response.body().getSuccess()) {
+                        currency.setCourse(response.body().getRates().getCurrency(code));
+                        sListener.onGetRealTimeData(currency, cListener);
+                    }
+                    else {
+                        currency.setCourse(-1);
+                        sListener.onGetRealTimeData(currency, cListener);
+                    }
+                } catch (NullPointerException ex) {
                     currency.setCourse(-1);
-                    sListener.onGetRealTimeData(currency, cListener);
+                    sListener.onGetRealTimeData(null, cListener);
                 }
             }
 
@@ -94,11 +104,14 @@ public class RepositoryCurrency{
         messageHistorical.enqueue(new Callback<MessageCurrency>() {
             @Override
             public void onResponse(Call<MessageCurrency> call, Response<MessageCurrency> response) {
-                if (response.body().getSuccess()) {
-                    historicalCourse = response.body().getRates().getCurrency(code);
-                    sListener.onGetHistoricalData(currency, cListener);
-                }
-                else {
+                try {
+                    if (response.body().getSuccess()) {
+                        historicalCourse = response.body().getRates().getCurrency(code);
+                        sListener.onGetHistoricalData(currency, cListener);
+                    } else {
+                        sListener.onGetHistoricalData(currency, cListener);
+                    }
+                } catch (NullPointerException ex) {
                     sListener.onGetHistoricalData(currency, cListener);
                 }
             }
@@ -111,21 +124,20 @@ public class RepositoryCurrency{
     }
 
     public static void getCurrencyValue(final CurrencyValueDataListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://data.fixer.io/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        CurrencyApi currencyApi = retrofit.create(CurrencyApi.class);
+        buildRetrofitAndApi();
 
         Call<MessageCurrency> messageLatest = currencyApi.latest();
         messageLatest.enqueue(new Callback<MessageCurrency>() {
             @Override
             public void onResponse(Call<MessageCurrency> call, Response<MessageCurrency> response) {
-                if (response.body().getSuccess())
-                    listener.onGetValueData(response.body().getRates());
-                else
+                try {
+                    if (response.body().getSuccess())
+                        listener.onGetValueData(response.body().getRates());
+                    else
+                        listener.onGetValueData(new Rate());
+                } catch (NullPointerException ex) {
                     listener.onGetValueData(new Rate());
+                }
             }
 
             @Override

@@ -22,12 +22,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RepositoryProfile {
 
+    private static Retrofit retrofit;
+    private static ProfileApi profileApi;
+
+    private static void buildRetrofitAndApi() {
+        if (retrofit == null || profileApi == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("http://92.63.64.193:10010/api/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            profileApi = retrofit.create(ProfileApi.class);
+        }
+    }
+
     public static void getUserInfo(final DataListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://92.63.64.193:10010/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ProfileApi profileApi = retrofit.create(ProfileApi.class);
+        buildRetrofitAndApi();
         Call<User> userInfo = profileApi.getUserInfo(Token.getCurrentToken().getToken());
         userInfo.enqueue(new Callback<User>() {
             @Override
@@ -52,11 +61,7 @@ public class RepositoryProfile {
 
     //login
     public static void getUserToken(String username, String password, final DataListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://92.63.64.193:10010/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ProfileApi profileApi = retrofit.create(ProfileApi.class);
+        buildRetrofitAndApi();
         Call<Token> login = profileApi.login(new LoginData(username, password));
         login.enqueue(new Callback<Token>() {
             @Override
@@ -81,11 +86,7 @@ public class RepositoryProfile {
     }
 
     public static void changeLogin(String newLogin, final DataListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://92.63.64.193:10010/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ProfileApi profileApi = retrofit.create(ProfileApi.class);
+        buildRetrofitAndApi();
         Call<User> changeLoginData = profileApi.changeLogin(Token.getCurrentToken().getToken(),
                 new NewLoginData(newLogin, null));
         changeLoginData.enqueue(new Callback<User>() {
@@ -109,11 +110,7 @@ public class RepositoryProfile {
     }
 
     public static void changePassword(String newPassword, final DataListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://92.63.64.193:10010/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ProfileApi profileApi = retrofit.create(ProfileApi.class);
+        buildRetrofitAndApi();
         Call<User> changePasswordData = profileApi.changePassword(Token.getCurrentToken().getToken(),
                 new NewLoginData(null, newPassword));
         changePasswordData.enqueue(new Callback<User>() {
@@ -137,11 +134,7 @@ public class RepositoryProfile {
     }
 
     public static void logout(final DataListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://92.63.64.193:10010/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ProfileApi profileApi = retrofit.create(ProfileApi.class);
+        buildRetrofitAndApi();
         Call<ResponseBody> logout = profileApi.logout(Token.getCurrentToken());
         logout.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -165,11 +158,7 @@ public class RepositoryProfile {
 
     public static void changeCardName(final String cardName, String cardNumber,
                                       final DataListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://92.63.64.193:10010/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ProfileApi profileApi = retrofit.create(ProfileApi.class);
+        buildRetrofitAndApi();
         Call<Card> changeCardName = profileApi.changeCardName(cardNumber,
                 new NewCardName(cardName), Token.getCurrentToken().getToken());
         changeCardName.enqueue(new Callback<Card>() {
@@ -193,11 +182,7 @@ public class RepositoryProfile {
     }
 
     public static void blockCard(String cardNumber, final DataListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://92.63.64.193:10010/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ProfileApi profileApi = retrofit.create(ProfileApi.class);
+        buildRetrofitAndApi();
         Call<Card> cardBlock = profileApi.blockCard(cardNumber, Token.getCurrentToken().getToken());
         cardBlock.enqueue(new Callback<Card>() {
             @Override
@@ -220,11 +205,7 @@ public class RepositoryProfile {
     }
 
     public static void getCardOperationsHistory(String cardNumber, final HistoryListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://92.63.64.193:10010/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ProfileApi profileApi = retrofit.create(ProfileApi.class);
+        buildRetrofitAndApi();
         Call<Operation[]> operationsHistory = profileApi.getCardOperationsHistory(cardNumber,
                 Token.getCurrentToken().getToken());
         operationsHistory.enqueue(new Callback<Operation[]>() {
